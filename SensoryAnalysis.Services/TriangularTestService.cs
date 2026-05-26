@@ -14,7 +14,7 @@ public class TriangularTestService : ITestService
         throw new NotImplementedException();
     }
 
-    public List<Sample> GenerateSamples()
+    public List<Sample> GenerateSamples(SampleTypes? differentSample = null)
     {
         throw new NotImplementedException();
     }

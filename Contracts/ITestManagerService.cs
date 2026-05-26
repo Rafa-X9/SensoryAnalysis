@@ -32,6 +32,31 @@ public interface ITestManagerService
 
     #endregion
 
+    #region Reading
+
+    /// <summary>
+    /// Returns the test with the searched Id, or null if there is none
+    /// </summary>
+    /// <param name="id">The Id to search for</param>
+    /// <returns>The respective test, or null if there are no matches</returns>
+    TestResponse? GetTestById(Guid id);
+
+    /// <summary>
+    /// Returns all tests
+    /// </summary>
+    /// <returns>List containing all tests</returns>
+    List<TestResponse> GetAllTests();
+
+    /// <summary>
+    /// Returns all judgers in the given test
+    /// </summary>
+    /// <param name="testId">The test's Id to search for</param>
+    /// <returns>List containing all judgers from the test</returns>
+    /// <exception cref="ArgumentException">Thrown if the given Id has no matches</exception>
+    List<JudgerResponse> GetJudgersFromTest(Guid testId);
+
+    #endregion
+
     #region Making the test
 
     /// <summary>

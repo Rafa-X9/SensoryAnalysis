@@ -6,19 +6,35 @@ public class TestResponse
     public Guid Id { get; set; }
     public string Name { get; set; }
     public TestTypes TestType { get; set; }
+    public Significances Significance { get; set; }
     public List<JudgerResponse> Judgers { get; set; }
     public DateTime CreatedAt { get; set; }
 
     public TestResponse(Guid id,
         string name,
         TestTypes testType,
+        Significances significance,
         List<Judger> judgers,
         DateTime createdAt)
     {
         Id = id;
         Name = name;
         TestType = testType;
+        Significance = significance;
         Judgers = judgers.Select(judger => judger.ToJudgerResponse()).ToList();
         CreatedAt = createdAt;
+    }
+}
+
+public static class TestExtension
+{
+    public static TestResponse ToTestResponse(this Test test)
+    {
+        return new(test.Id,
+            test.Name,
+            test.TestType,
+            test.Significance,
+            test.Judgers,
+            test.CreatedAt);
     }
 }

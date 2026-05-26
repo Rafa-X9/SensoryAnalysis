@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoryAnalysis.Web", "SensoryAnalysis.Web\SensoryAnalysis.Web.csproj", "{C982BB48-275E-4326-8C3A-E92B08E5FC54}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoryAnalysis.Contracts", "Contracts\SensoryAnalysis.Contracts.csproj", "{66DEBC73-7999-4F49-90C7-BAD72C36B6F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoryAnalysis.Entities", "SensoryAnalysis.Entities\SensoryAnalysis.Entities.csproj", "{F77C8761-BBF4-45DE-83DC-C9491DFA248C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoryAnalysis.Services", "SensoryAnalysis.Services\SensoryAnalysis.Services.csproj", "{15BC4C35-2B00-4E5C-A1BC-61647ECA758D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoryAnalysis.Tests", "SensoryAnalysis.Tests\SensoryAnalysis.Tests.csproj", "{67ACC179-7894-4BFF-B236-53986E698BC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{66DEBC73-7999-4F49-90C7-BAD72C36B6F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66DEBC73-7999-4F49-90C7-BAD72C36B6F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66DEBC73-7999-4F49-90C7-BAD72C36B6F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F77C8761-BBF4-45DE-83DC-C9491DFA248C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F77C8761-BBF4-45DE-83DC-C9491DFA248C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F77C8761-BBF4-45DE-83DC-C9491DFA248C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F77C8761-BBF4-45DE-83DC-C9491DFA248C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15BC4C35-2B00-4E5C-A1BC-61647ECA758D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15BC4C35-2B00-4E5C-A1BC-61647ECA758D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15BC4C35-2B00-4E5C-A1BC-61647ECA758D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15BC4C35-2B00-4E5C-A1BC-61647ECA758D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67ACC179-7894-4BFF-B236-53986E698BC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67ACC179-7894-4BFF-B236-53986E698BC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67ACC179-7894-4BFF-B236-53986E698BC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67ACC179-7894-4BFF-B236-53986E698BC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

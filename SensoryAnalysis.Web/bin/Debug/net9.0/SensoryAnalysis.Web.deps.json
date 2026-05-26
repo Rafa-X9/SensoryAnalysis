@@ -7,14 +7,63 @@
   "targets": {
     ".NETCoreApp,Version=v9.0": {
       "SensoryAnalysis.Web/1.0.0": {
+        "dependencies": {
+          "SensoryAnalysis.Contracts": "1.0.0",
+          "SensoryAnalysis.Services": "1.0.0"
+        },
         "runtime": {
           "SensoryAnalysis.Web.dll": {}
+        }
+      },
+      "SensoryAnalysis.Contracts/1.0.0": {
+        "dependencies": {
+          "SensoryAnalysis.Entities": "1.0.0"
+        },
+        "runtime": {
+          "SensoryAnalysis.Contracts.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SensoryAnalysis.Entities/1.0.0": {
+        "runtime": {
+          "SensoryAnalysis.Entities.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SensoryAnalysis.Services/1.0.0": {
+        "dependencies": {
+          "SensoryAnalysis.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "SensoryAnalysis.Services.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
   },
   "libraries": {
     "SensoryAnalysis.Web/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SensoryAnalysis.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SensoryAnalysis.Entities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SensoryAnalysis.Services/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

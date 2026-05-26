@@ -17,7 +17,7 @@ public class TestResult
     public int CorrectAnswers { get; set; }
 
     /// <summary>
-    /// The total amount of wrong answers in the test
+    /// The total amount of wrong answers in the test from the ones who answered
     /// </summary>
     public int WrongAnswers { get { return TotalAnswers - CorrectAnswers; } }
     

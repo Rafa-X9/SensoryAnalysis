@@ -17,10 +17,14 @@ public interface ITestService
     bool IsValid(TestAddRequest request);
 
     /// <summary>
-    /// Generates samples for a judger
+    ///  Generates samples for a judger
     /// </summary>
+    /// <param name="differentSample">
+    /// If a value is given, the different sample (i.e. the correct one) will be
+    /// of the given type
+    /// </param>
     /// <returns>List containing newly generated samples</returns>
-    List<Sample> GenerateSamples();
+    List<Sample> GenerateSamples(SampleTypes? differentSample = null);
 
     /// <summary>
     /// Generates a test's results

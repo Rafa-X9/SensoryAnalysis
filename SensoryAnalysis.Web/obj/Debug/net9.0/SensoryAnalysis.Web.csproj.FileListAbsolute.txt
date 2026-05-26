@@ -62,3 +62,12 @@ C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAn
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\SensoryAnalysis.Web.pdb
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\SensoryAnalysis.Web.genruntimeconfig.cache
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\ref\SensoryAnalysis.Web.dll
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\bin\Debug\net9.0\SensoryAnalysis.Contracts.dll
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\bin\Debug\net9.0\SensoryAnalysis.Entities.dll
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\bin\Debug\net9.0\SensoryAnalysis.Services.dll
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\bin\Debug\net9.0\SensoryAnalysis.Contracts.pdb
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\bin\Debug\net9.0\SensoryAnalysis.Services.pdb
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\bin\Debug\net9.0\SensoryAnalysis.Entities.pdb
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\SensoryAnalysis.Web.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\SensoryAnalysis.Web.sourcelink.json
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\SensoryA.F8429A38.Up2Date

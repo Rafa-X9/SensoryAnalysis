@@ -31,6 +31,20 @@ public class TestManagerService : ITestManagerService
 
     #endregion
 
+    #region Reading 
+
+    public TestResponse? GetTestById(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<TestResponse> GetAllTests()
+    {
+        throw new NotImplementedException();
+    }
+
+    #endregion
+
     #region Making the test
 
     public TestResponse AddAnswerToTest(Guid testId, Guid judgerId, Guid? chosenSample)
