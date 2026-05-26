@@ -1,30 +1,11 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {
-      "SensoryAnalysis.Entities/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "compile": {
-          "bin/placeholder/SensoryAnalysis.Entities.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/SensoryAnalysis.Entities.dll": {}
-        }
-      }
-    }
+    "net9.0": {}
   },
-  "libraries": {
-    "SensoryAnalysis.Entities/1.0.0": {
-      "type": "project",
-      "path": "../SensoryAnalysis.Entities/SensoryAnalysis.Entities.csproj",
-      "msbuildProject": "../SensoryAnalysis.Entities/SensoryAnalysis.Entities.csproj"
-    }
-  },
+  "libraries": {},
   "projectFileDependencyGroups": {
-    "net9.0": [
-      "SensoryAnalysis.Entities >= 1.0.0"
-    ]
+    "net9.0": []
   },
   "packageFolders": {
     "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
@@ -33,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\Contracts\\SensoryAnalysis.Contracts.csproj",
-      "projectName": "SensoryAnalysis.Contracts",
-      "projectPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\Contracts\\SensoryAnalysis.Contracts.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Entities\\SensoryAnalysis.Entities.csproj",
+      "projectName": "SensoryAnalysis.Entities",
+      "projectPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Entities\\SensoryAnalysis.Entities.csproj",
       "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\Contracts\\obj\\",
+      "outputPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Entities\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -57,11 +38,7 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {
-            "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Entities\\SensoryAnalysis.Entities.csproj": {
-              "projectPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Entities\\SensoryAnalysis.Entities.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
