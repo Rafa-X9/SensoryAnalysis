@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SensoryAnalysis.Entities")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dbc6f9d677b611a806188fbcc7085506ecd8770e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aa96f6a6e7015f9932feb822112d93b12217b153")]
 [assembly: System.Reflection.AssemblyProductAttribute("SensoryAnalysis.Entities")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SensoryAnalysis.Entities")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

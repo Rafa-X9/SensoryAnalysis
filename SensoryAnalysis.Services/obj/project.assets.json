@@ -24,19 +24,6 @@
         "runtime": {
           "bin/placeholder/SensoryAnalysis.Entities.dll": {}
         }
-      },
-      "SensoryAnalysis.Services/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "dependencies": {
-          "SensoryAnalysis.Contracts": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/SensoryAnalysis.Services.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/SensoryAnalysis.Services.dll": {}
-        }
       }
     }
   },
@@ -50,17 +37,11 @@
       "type": "project",
       "path": "../SensoryAnalysis.Entities/SensoryAnalysis.Entities.csproj",
       "msbuildProject": "../SensoryAnalysis.Entities/SensoryAnalysis.Entities.csproj"
-    },
-    "SensoryAnalysis.Services/1.0.0": {
-      "type": "project",
-      "path": "../SensoryAnalysis.Services/SensoryAnalysis.Services.csproj",
-      "msbuildProject": "../SensoryAnalysis.Services/SensoryAnalysis.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "SensoryAnalysis.Contracts >= 1.0.0",
-      "SensoryAnalysis.Services >= 1.0.0"
+      "SensoryAnalysis.Contracts >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -70,11 +51,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Web\\SensoryAnalysis.Web.csproj",
-      "projectName": "SensoryAnalysis.Web",
-      "projectPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Web\\SensoryAnalysis.Web.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Services\\SensoryAnalysis.Services.csproj",
+      "projectName": "SensoryAnalysis.Services",
+      "projectPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Services\\SensoryAnalysis.Services.csproj",
       "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Web\\obj\\",
+      "outputPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -97,9 +78,6 @@
           "projectReferences": {
             "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\Contracts\\SensoryAnalysis.Contracts.csproj": {
               "projectPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\Contracts\\SensoryAnalysis.Contracts.csproj"
-            },
-            "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Services\\SensoryAnalysis.Services.csproj": {
-              "projectPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Services\\SensoryAnalysis.Services.csproj"
             }
           }
         }
@@ -136,10 +114,6 @@
             "version": "[9.0.12, 9.0.12]"
           },
           {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[9.0.12, 9.0.12]"
-          },
-          {
             "name": "Microsoft.NETCore.App.Ref",
             "version": "[9.0.12, 9.0.12]"
           },
@@ -149,151 +123,13 @@
           }
         ],
         "frameworkReferences": {
-          "Microsoft.AspNetCore.App": {
-            "privateAssets": "none"
-          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
-          "Microsoft.AspNetCore": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Antiforgery": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Authentication": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Authentication.Abstractions": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Authentication.BearerToken": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Authentication.Cookies": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Authentication.Core": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Authentication.OAuth": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Authorization": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Authorization.Policy": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Components": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Components.Authorization": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Components.Endpoints": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Components.Forms": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Components.Server": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Components.Web": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Connections.Abstractions": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.CookiePolicy": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Cors": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Cryptography.Internal": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.DataProtection": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.DataProtection.Abstractions": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.DataProtection.Extensions": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Diagnostics": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Diagnostics.Abstractions": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Diagnostics.HealthChecks": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.HostFiltering": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Hosting": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Hosting.Abstractions": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Hosting.Server.Abstractions": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Html.Abstractions": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Http": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Http.Abstractions": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Http.Connections": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Http.Connections.Common": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Http.Extensions": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Http.Features": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Http.Results": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.HttpLogging": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.HttpOverrides": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.HttpsPolicy": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Identity": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Localization": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Localization.Routing": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Metadata": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Mvc": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Mvc.Abstractions": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Mvc.ApiExplorer": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Mvc.Core": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Mvc.Cors": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Mvc.DataAnnotations": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Mvc.Formatters.Json": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Mvc.Formatters.Xml": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Mvc.Localization": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Mvc.Razor": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Mvc.RazorPages": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Mvc.TagHelpers": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Mvc.ViewFeatures": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.OutputCaching": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.RateLimiting": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Razor": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Razor.Runtime": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.RequestDecompression": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.ResponseCaching": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.ResponseCaching.Abstractions": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.ResponseCompression": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Rewrite": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Routing": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Routing.Abstractions": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Server.HttpSys": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Server.IIS": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Server.IISIntegration": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Server.Kestrel": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Server.Kestrel.Core": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Server.Kestrel.Transport.NamedPipes": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Server.Kestrel.Transport.Quic": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.Session": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.SignalR": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.SignalR.Common": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.SignalR.Core": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.SignalR.Protocols.Json": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.StaticAssets": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.StaticFiles": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.WebSockets": "(, 9.0.32767]",
-          "Microsoft.AspNetCore.WebUtilities": "(, 9.0.32767]",
           "Microsoft.CSharp": "(, 4.7.32767]",
-          "Microsoft.Extensions.Caching.Abstractions": "(, 9.0.32767]",
-          "Microsoft.Extensions.Caching.Memory": "(, 9.0.32767]",
-          "Microsoft.Extensions.Configuration": "(, 9.0.32767]",
-          "Microsoft.Extensions.Configuration.Abstractions": "(, 9.0.32767]",
-          "Microsoft.Extensions.Configuration.Binder": "(, 9.0.32767]",
-          "Microsoft.Extensions.Configuration.CommandLine": "(, 9.0.32767]",
-          "Microsoft.Extensions.Configuration.EnvironmentVariables": "(, 9.0.32767]",
-          "Microsoft.Extensions.Configuration.FileExtensions": "(, 9.0.32767]",
-          "Microsoft.Extensions.Configuration.Ini": "(, 9.0.32767]",
-          "Microsoft.Extensions.Configuration.Json": "(, 9.0.32767]",
-          "Microsoft.Extensions.Configuration.KeyPerFile": "(, 9.0.32767]",
-          "Microsoft.Extensions.Configuration.UserSecrets": "(, 9.0.32767]",
-          "Microsoft.Extensions.Configuration.Xml": "(, 9.0.32767]",
-          "Microsoft.Extensions.DependencyInjection": "(, 9.0.32767]",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "(, 9.0.32767]",
-          "Microsoft.Extensions.Diagnostics": "(, 9.0.32767]",
-          "Microsoft.Extensions.Diagnostics.Abstractions": "(, 9.0.32767]",
-          "Microsoft.Extensions.Diagnostics.HealthChecks": "(, 9.0.32767]",
-          "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions": "(, 9.0.32767]",
-          "Microsoft.Extensions.Features": "(, 9.0.32767]",
-          "Microsoft.Extensions.FileProviders.Abstractions": "(, 9.0.32767]",
-          "Microsoft.Extensions.FileProviders.Composite": "(, 9.0.32767]",
-          "Microsoft.Extensions.FileProviders.Embedded": "(, 9.0.32767]",
-          "Microsoft.Extensions.FileProviders.Physical": "(, 9.0.32767]",
-          "Microsoft.Extensions.FileSystemGlobbing": "(, 9.0.32767]",
-          "Microsoft.Extensions.Hosting": "(, 9.0.32767]",
-          "Microsoft.Extensions.Hosting.Abstractions": "(, 9.0.32767]",
-          "Microsoft.Extensions.Http": "(, 9.0.32767]",
-          "Microsoft.Extensions.Identity.Core": "(, 9.0.32767]",
-          "Microsoft.Extensions.Identity.Stores": "(, 9.0.32767]",
-          "Microsoft.Extensions.Localization": "(, 9.0.32767]",
-          "Microsoft.Extensions.Localization.Abstractions": "(, 9.0.32767]",
-          "Microsoft.Extensions.Logging": "(, 9.0.32767]",
-          "Microsoft.Extensions.Logging.Abstractions": "(, 9.0.32767]",
-          "Microsoft.Extensions.Logging.Configuration": "(, 9.0.32767]",
-          "Microsoft.Extensions.Logging.Console": "(, 9.0.32767]",
-          "Microsoft.Extensions.Logging.Debug": "(, 9.0.32767]",
-          "Microsoft.Extensions.Logging.EventLog": "(, 9.0.32767]",
-          "Microsoft.Extensions.Logging.EventSource": "(, 9.0.32767]",
-          "Microsoft.Extensions.Logging.TraceSource": "(, 9.0.32767]",
-          "Microsoft.Extensions.ObjectPool": "(, 9.0.32767]",
-          "Microsoft.Extensions.Options": "(, 9.0.32767]",
-          "Microsoft.Extensions.Options.ConfigurationExtensions": "(, 9.0.32767]",
-          "Microsoft.Extensions.Options.DataAnnotations": "(, 9.0.32767]",
-          "Microsoft.Extensions.Primitives": "(, 9.0.32767]",
-          "Microsoft.Extensions.WebEncoders": "(, 9.0.32767]",
-          "Microsoft.JSInterop": "(, 9.0.32767]",
-          "Microsoft.Net.Http.Headers": "(, 9.0.32767]",
           "Microsoft.VisualBasic": "(, 10.4.32767]",
           "Microsoft.Win32.Primitives": "(, 4.3.32767]",
           "Microsoft.Win32.Registry": "(, 5.0.32767]",
@@ -466,7 +302,6 @@
           "System.Diagnostics.Contracts": "(, 4.3.32767]",
           "System.Diagnostics.Debug": "(, 4.3.32767]",
           "System.Diagnostics.DiagnosticSource": "(, 9.0.32767]",
-          "System.Diagnostics.EventLog": "(, 9.0.32767]",
           "System.Diagnostics.FileVersionInfo": "(, 4.3.32767]",
           "System.Diagnostics.Process": "(, 4.3.32767]",
           "System.Diagnostics.StackTrace": "(, 4.3.32767]",
@@ -550,7 +385,6 @@
           "System.Security.Cryptography.OpenSsl": "(, 5.0.32767]",
           "System.Security.Cryptography.Primitives": "(, 4.3.32767]",
           "System.Security.Cryptography.X509Certificates": "(, 4.3.32767]",
-          "System.Security.Cryptography.Xml": "(, 9.0.32767]",
           "System.Security.Principal": "(, 4.3.32767]",
           "System.Security.Principal.Windows": "(, 5.0.32767]",
           "System.Security.SecureString": "(, 4.3.32767]",
@@ -563,7 +397,6 @@
           "System.Threading": "(, 4.3.32767]",
           "System.Threading.Channels": "(, 9.0.32767]",
           "System.Threading.Overlapped": "(, 4.3.32767]",
-          "System.Threading.RateLimiting": "(, 9.0.32767]",
           "System.Threading.Tasks": "(, 4.3.32767]",
           "System.Threading.Tasks.Dataflow": "(, 9.0.32767]",
           "System.Threading.Tasks.Extensions": "(, 5.0.32767]",
