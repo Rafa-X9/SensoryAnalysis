@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SensoryAnalysis.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0188d30e9822e8b9941569b310301ba88874a9f6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+30a14105a44fa50ae695e301291962deda046a9f")]
 [assembly: System.Reflection.AssemblyProductAttribute("SensoryAnalysis.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SensoryAnalysis.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

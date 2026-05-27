@@ -19,12 +19,15 @@ public interface ITestService
     /// <summary>
     ///  Generates samples for a judger
     /// </summary>
+    /// <param name="judgerId">
+    /// The judger Id to add to the sample. If it's null, a new Guid is created
+    /// </param>
     /// <param name="differentSample">
     /// If a value is given, the different sample (i.e. the correct one) will be
     /// of the given type
     /// </param>
     /// <returns>List containing newly generated samples</returns>
-    List<Sample> GenerateSamples(SampleTypes? differentSample = null);
+    List<Sample> GenerateSamples(Guid? judgerId = null, SampleTypes ? differentSample = null);
 
     /// <summary>
     /// Generates a test's results

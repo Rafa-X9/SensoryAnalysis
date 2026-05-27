@@ -2,6 +2,7 @@
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services;
+using SensoryAnalysis.Services.Helpers;
 
 namespace SensoryAnalysis.Tests;
 
@@ -46,9 +47,8 @@ public class TriangularTestTests
      * 
      * If a SampleType is given, the different sample must be of it
      * 
-     * I will ask my teacher if certain numbers should be avoided to
-     * prevent bias (numbers such as 666, 123, 100 etc). If so I will
-     * update this test
+     * Certain numbers must be avoided to prevent bias on the judger, they
+     * are 100, 333, 666, 777, and 999 as far as I'm concerned
      * 
      */
 
@@ -69,7 +69,7 @@ public class TriangularTestTests
         //no repetitions
         foreach (Sample sample in samples)
         {
-            Assert.DoesNotContain(samples, s => s.Number == sample.Number);
+            Assert.DoesNotContain(samples, s => s.Number == sample.Number && s.Id != sample.Id);
         }
 
         //not ascending
@@ -98,6 +98,9 @@ public class TriangularTestTests
         int s1 = samples.Count(s => s.SampleType == SampleTypes.Sample1);
         int s2 = samples.Count(s => s.SampleType == SampleTypes.Sample2);
         Assert.True((s1 == 1 && s2 == 2) || (s1 == 2 && s2 == 1));
+
+        //no 100, 333, 666, 777, nor 999
+        Assert.DoesNotContain(samples, s => s.Number.IsIn(100, 333, 666, 777, 999));
     }
 
     [Fact]
