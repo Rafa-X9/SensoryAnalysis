@@ -63,12 +63,13 @@
         };
     }
 
-    @foreach (JudgerResponse judger in Model.Judgers)
+    @for (int i = 0; i < Model.Judgers.Count; i++)
     {
+        JudgerResponse judger = Model.Judgers[i];
         <div class="record">
 
-            <h1>Teste @(type)</h1>
-            <p>Nome: _______________________ Data: ___/___/______</p>
+            <h1>Teste @(type) - Ficha @(i + 1)</h1>
+            <p>Nome: _________________________________ Data: ___/___/______</p>
             <p>@(ViewBag.Instructions)</p>
 
             <div class="sample-options-container">
@@ -81,7 +82,7 @@
                 }
             </div>
 
-            <p>Comentários: ____________________________________</p>
+            <p>Comentários: ______________________________________________</p>
         </div>
     }
     

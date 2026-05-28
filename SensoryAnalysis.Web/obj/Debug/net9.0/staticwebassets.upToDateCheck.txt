@@ -1,3 +1,4 @@
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\wwwroot\Style.css
 wwwroot\Rotativa\wkhtmltopdf.exe
 wwwroot\Style.css
+wwwroot\sensory-analysis.webp

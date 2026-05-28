@@ -120,7 +120,7 @@ public class TestController : Controller
 
         ViewBag.Instructions = "Você está recebendo 3 amostras codificadas. " +
             "Duas amostras são iguais e uma diferente. Por favor, avalie " +
-            "as amostras da esquerda para a direita. Marque a amostra " +
+            "as amostras da esquerda para a direita e marque a amostra " +
             "diferente.";
 
         return new ViewAsPdf("TestRecordPDF", test, ViewData)

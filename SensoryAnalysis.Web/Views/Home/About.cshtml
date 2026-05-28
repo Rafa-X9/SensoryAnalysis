@@ -1,1 +1,114 @@
-﻿<h2>Sobre</h2>
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<h2>Sobre</h2>
+
+<h3>O que é a análise sensorial?</h3>
+
+<img src="~/sensory-analysis.webp" rel="Person analysing foods" />
+
+<p>
+    A análise sensorial é uma disciplina científica que utiliza os
+    cinco sentidos humanos (visão, olfato, tato, paladar e audição)
+    para medir, analisar e interpretar reações a produtos.
+</p>
+
+<p>
+    Essa área é amplamente utilizada pelas indústrias de alimentos, 
+    bebidas, cosméticos e produtos de higiene, pois permite avaliar 
+    características que influenciam diretamente a aceitação dos 
+    consumidores. Por meio da análise sensorial, é possível identificar
+    diferenças entre produtos, verificar a qualidade de matérias-primas
+    e acompanhar a consistência da produção ao longo do tempo.
+</p>
+
+<p>
+    Existem diversos tipos de testes sensoriais, cada um com objetivos 
+    específicos. Os testes discriminativos verificam se há diferenças 
+    perceptíveis entre amostras, enquanto os testes descritivos 
+    caracterizam detalhadamente os atributos sensoriais de um produto. 
+    Já os testes afetivos avaliam a preferência e o grau de satisfação 
+    dos consumidores. <b>Esta aplicação organiza testes discriminativos</b>.
+</p>
+
+<p>
+    Os testes que esta aplicação organiza são:
+    <ul>
+        <li>Testes triangulares</li>
+    </ul>
+</p>
+
+<h2 id="triangular">Testes triangulares</h2>
+
+<p>
+    O teste triangular é o teste discriminativo mais comum. Seu 
+    propósito é verificar se há uma diferença perceptível entre uma
+    amostra A e uma amostra B.
+</p>
+
+<p>
+    No teste triangular, o julgador recebe <b>três amostras codificadas</b>.
+    Duas amostras são iguais, e uma é diferente. O julgadore deve analisar
+    as amostras da esquerda para a direita e então marcar a amostra que ele 
+    julgar ser a amostra diferente.
+</p>
+
+<p>
+    Geralmente, o teste triangular é feito com a <b>escolha forçada</b>, 
+    isto é, o julgador deve escolher uma das três amostras em sua resposta, 
+    sendo recomendado a escolher uma amostra ao acaso se ele não perceber
+    diferença alguma. Com isso, é possível analisar os resultados da análise
+    estatisticamente.
+</p>
+
+<h3>Cálculos</h3>
+
+<p>
+    Cada teste triangular recebe um nível de significância, indicando 
+    o quanto o organizador do teste exige dos julgadores. Um nível de 
+    significância menor exigirá mais respostas corretas para assertar
+    que as amostras são diferentes.
+</p>
+
+<p>
+    Os níveis de significância mais usados e disponíveis para uso 
+    nessa aplicação são:
+    <ul>
+        <li>20%</li>
+        <li>10%</li>
+        <li>5%</li>
+        <li>1%</li>
+        <li>0,1%</li>
+    </ul>
+</p>
+
+<p>
+    Uma vez tida a quantidade total de respostas e a quantidade total 
+    de respostas corretas, a fórmula para calcular a quantidade mínima 
+    de respostas corretas para assertar relevância <b>x</b> é, arredondado
+    para cima:
+</p>
+
+<p><b>x = (n / 3) + (z * &radic;(2n / 9))</b></p>
+
+<p>Onde:</p>
+
+<ul>
+    <li>n é a quantidade de respostas</li>
+    <li>
+        z é um valor que muda a depender do nível de significância:
+        <ul>
+            <li>0,84 para 20%</li>
+            <li>1,28 para 10%</li>
+            <li>1,64 para 5%</li>
+            <li>2,33 para 1%</li>
+            <li>3.10 para 0.1%</li>
+        </ul>
+    </li>
+</ul>
+
+<p>
+    Caso a quantidade total de respostas corretas for igual ou maior a 
+    <b>x</b>, pode-se então confirmar-se que as amostras são diferentes.
+</p>

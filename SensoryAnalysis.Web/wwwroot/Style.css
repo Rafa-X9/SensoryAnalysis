@@ -97,6 +97,10 @@ button.small-button {
     font-size: 14px;
 }
 
+img {
+    width: 400px;
+}
+
 .width-450px {
     width: 450px;
 }
