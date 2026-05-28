@@ -137,4 +137,16 @@ public class TestManagerService : ITestManagerService
     }
 
     #endregion
+
+    #region Deleting
+
+    public bool DeleteTest(Guid testId)
+    {
+        int before = _tests.Count;
+        _tests.RemoveAll(test => test.Id == testId);
+        int after = _tests.Count;
+        return before > after;
+    }
+
+    #endregion
 }

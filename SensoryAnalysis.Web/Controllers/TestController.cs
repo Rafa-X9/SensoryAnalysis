@@ -54,4 +54,21 @@ public class TestController : Controller
         }
         return RedirectToAction("Index");
     }
+
+    [Route("delete")]
+    [HttpGet]
+    public IActionResult Delete(Guid id)
+    {
+        TestResponse? test = _testManager.GetTestById(id);
+        if (test is null) return RedirectToAction("Index");
+        return View(test);
+    }
+
+    [Route("delete")]
+    [HttpPost]
+    public IActionResult Delete(Guid id, bool soggyCatIsPeak = true)
+    {
+        _testManager.DeleteTest(id);
+        return RedirectToAction("Index");
+    }
 }

@@ -44,7 +44,7 @@
                 <td>@(test.CreatedAt.ToString("dd/MM/yyyy"))</td>
                 <td>
                     <a href="">Abrir</a>
-                    <a href="">Deletar</a>
+                    <a asp-controller="Test" asp-action="Delete" asp-route-id="@(test.Id)">Deletar</a>
                 </td>
             </tr>
         }

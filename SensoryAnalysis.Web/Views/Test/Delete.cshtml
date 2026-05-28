@@ -1,0 +1,22 @@
+﻿@model TestResponse
+@{
+    ViewBag.Title = "Delete Test";
+}
+
+<h2>Deletar teste</h2>
+<p><a asp-asp-controller="Test" asp-action="Index">Voltar</a></p>
+
+<form asp-controller="Test" asp-action="Delete" method="post">
+
+    <input asp-for="Id" hidden />
+
+    <div class="input-fields-group">
+        <div class="input-field">
+            <label asp-for="Name">Nome</label>
+            <br>
+            <input class="width-450px" asp-for="Name" readonly>
+        </div>
+    </div>
+
+    <button>Deletar</button>
+</form>

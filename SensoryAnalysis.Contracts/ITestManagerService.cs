@@ -57,6 +57,17 @@ public interface ITestManagerService
 
     #endregion
 
+    #region Removing
+
+    /// <summary>
+    /// Deletes a test and returns whether if it was sucessful
+    /// </summary>
+    /// <param name="testId">The test to delete's Id</param>
+    /// <returns>True if sucessful, false otherwise</returns>
+    bool DeleteTest(Guid testId);
+
+    #endregion
+
     #region Making the test
 
     /// <summary>
