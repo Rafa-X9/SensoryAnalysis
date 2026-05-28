@@ -34,6 +34,12 @@ public class TriangularTestService : ITestService
             }
         }
 
+        if ((numbers[0] < numbers[1] && numbers[1] < numbers[2])
+            || (numbers[0] > numbers[1] && numbers[1] > numbers[2]))
+        {
+            numbers.Sort((n1, n2) => _random.Next(-2, 3));
+        }
+
         List<Sample> samples = [];
         Guid id = judgerId ?? Guid.NewGuid();
         int differentPosition = _random.Next(0, 3);
@@ -42,6 +48,7 @@ public class TriangularTestService : ITestService
 
         for (int i = 0; i <= 2; i++)
         {
+            //SampleTypes type = (i == differentPosition) ? doubleSample : (SampleTypes)differentSample;
             SampleTypes type = (i == differentPosition) ? (SampleTypes)differentSample : doubleSample;
             samples.Add(new(id, numbers[i], type));
         }

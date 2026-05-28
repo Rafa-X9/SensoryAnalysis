@@ -84,7 +84,7 @@ public interface ITestManagerService
     /// </summary>
     /// <param name="testId">The test to add an answer to a judge in</param>
     /// <param name="judgerId">The judger to add a response to</param>
-    /// <param name="chosenSample">The number of the sample the judger chose</param>
+    /// <param name="chosenSample">The number of the sample the judger chose, null to remove</param>
     /// <returns>A <see cref="TestResponse"/> object with updated data, null to remove an answer</returns>
     TestResponse AddAnswerToTest(Guid testId, Guid judgerId, int? chosenSample);
 

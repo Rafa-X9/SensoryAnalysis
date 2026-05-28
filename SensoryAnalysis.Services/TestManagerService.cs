@@ -16,6 +16,12 @@ public class TestManagerService : ITestManagerService
     {
         _tests = [];
         _serviceFactory = serviceFactory;
+
+        _tests.Add(new("Teste de pão de queijo",
+            TestTypes.Triangular,
+            Significances._5,
+            nameOfSample1: "Polvilho misto",
+            nameOfSample2: "Polvilho azedo"));
     }
 
     #region Creating
@@ -39,7 +45,7 @@ public class TestManagerService : ITestManagerService
         Judger judge = new(test.Id, []);
 
         SampleTypes lessFrequentType;
-        if (test.Judgers.Count(j => j.Samples.Count(s => s.SampleType == SampleTypes.Sample1) == 1) < test.Judgers.Count / 2)
+        if (test.Judgers.Count(j => j.Samples.Count(s => s.SampleType == SampleTypes.Sample1) == 1) <= test.Judgers.Count / 2)
         {
             lessFrequentType = SampleTypes.Sample1;
         }
@@ -116,6 +122,13 @@ public class TestManagerService : ITestManagerService
         {
             throw new ArgumentException("Invalid judger id");
         }
+
+        if (chosenSample is null)
+        {
+            judger.Answer = null;
+            return test.ToTestResponse();
+        }
+        
         Sample? sample = judger.Samples.FirstOrDefault(s => s.Number == chosenSample);
         if (sample is null)
         {

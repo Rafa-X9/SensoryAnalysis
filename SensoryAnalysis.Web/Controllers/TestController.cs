@@ -71,4 +71,43 @@ public class TestController : Controller
         _testManager.DeleteTest(id);
         return RedirectToAction("Index");
     }
+
+    [Route("{id:guid}")]
+    public IActionResult ViewTest(Guid id)
+    {
+        TestResponse? test = _testManager.GetTestById(id);
+        if (test is null) return RedirectToAction("Index");
+        ViewBag.Result = _testManager.GetTestResults(id);
+        return View(test);
+    }
+
+    [Route("addjudger")]
+    public IActionResult AddJudger(Guid id, int amount)
+    {
+        if (amount <= 0 || _testManager.GetTestById(id) is null)
+        {
+            return RedirectToAction("Index");
+        }
+        for (int i = 0; i < amount; i++)
+        {
+            _testManager.AddJudgerToTest(id);
+        }
+        return RedirectToAction("ViewTest", new { id });
+    }
+
+    [Route("submitanswer")]
+    [HttpPost]
+    public IActionResult SubmitAnswer(Guid testId, Guid judgerId, int answer)
+    {
+        TestResponse? test = _testManager.GetTestById(testId);
+        if (test is null) return RedirectToAction("Index");
+
+        if (!test.Judgers.Any(j => j.Id == judgerId &&
+            (answer == -1 || j.Samples.Any(s => s.Number == answer))))
+        {
+            return RedirectToAction("Index");
+        }
+        _testManager.AddAnswerToTest(testId, judgerId, (answer == -1) ? null : answer);
+        return RedirectToAction("ViewTest", new { id = testId });
+    }
 }

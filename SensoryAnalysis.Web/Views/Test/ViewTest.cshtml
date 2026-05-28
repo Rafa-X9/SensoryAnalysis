@@ -1,0 +1,114 @@
+﻿@model TestResponse
+@{
+    ViewBag.Title = Model.Name;
+    string type = Model.TestType switch
+    {
+        TestTypes.Triangular => "triangular",
+        TestTypes.DuoTrio => "duo-trio",
+        _ => ""
+    };
+}
+
+<h2>@(Model.Name)</h2>
+
+<p>Teste @(type)</p>
+<p>Criado em: @(Model.CreatedAt.ToString("dd/MM/yyyy"))</p>
+<p>
+    Adicionar julgadores:
+    <span> </span><a asp-controller="Test" asp-action="AddJudger" asp-route-id="@(Model.Id)" asp-route-amount="1">1</a><span> </span>
+    <span> </span><a asp-controller="Test" asp-action="AddJudger" asp-route-id="@(Model.Id)" asp-route-amount="5">5</a><span> </span>
+    <span> </span><a asp-controller="Test" asp-action="AddJudger" asp-route-id="@(Model.Id)" asp-route-amount="10">10</a><span> </span>
+</p>
+
+
+<table>
+    <tr>
+        <th>Amostras</th>
+        <th>Números</th>
+        <th>Resposta</th>
+        <th>Ações</th>
+    </tr>
+    @foreach (JudgerResponse judger in Model.Judgers)
+    {
+        string samples = "";
+        List<(int number, bool isSelected)> sampleOptions = [];
+        @* sampleOptions.Add((-1, judger.Answer == null)); *@
+
+        foreach (Sample sample in judger.Samples)
+        {
+            if (sample.SampleType == SampleTypes.Sample1)
+            {
+                samples += "1";
+            }
+            else
+            {
+                samples += "2";
+            }
+            sampleOptions.Add((sample.Number, judger.Answer == sample.Number));
+        }
+
+        string numbers = string.Join(" - ", judger.Samples.Select(s => s.Number.ToString()));
+
+        <form asp-controller="Test" asp-action="SubmitAnswer" method="post">
+        <tr>
+            <td>@(samples)</td>
+            <td>@(numbers)</td>
+            <td>
+                <input name="testId" value="@(Model.Id)" hidden />
+                <input name="judgerId" value="@(judger.Id)" hidden />
+
+                <select name="answer">
+                    <option value="-1"> - </option>
+                    @foreach ((int number, bool isSelected) sampleOption in sampleOptions)
+                    {
+                        string displayNumber = (sampleOption.number == -1) ? " - " : sampleOption.number.ToString();
+                        if (sampleOption.isSelected)
+                        {
+                            <option selected="selected">@(displayNumber)</option>
+                        }
+                        else
+                        {
+                            <option>@(displayNumber)</option>
+                        }
+                    }
+                </select>
+                <button class="small-button">Salvar</button>
+            </td>
+            <td><a href="">Remover</a></td>
+        </tr>
+        </form>
+    }
+</table>
+
+<h2>Resultado</h2>
+
+<table>
+    @{
+        TestResult result = ViewBag.Result;
+    }
+
+    <tr>
+        <td>Quantidade de julgadores</td>
+        <td>@(result.TotalJudgers)</td>
+    </tr>
+    <tr>
+        <td>Quantidade de respostas</td>
+        <td>@(result.TotalAnswers)</td>
+    </tr>
+    <tr>
+        <td>Respostas corretas</td>
+        <td>@(result.CorrectAnswers)</td>
+    </tr>
+    <tr>
+        <td>Respostas incorretas</td>
+        <td>@(result.WrongAnswers)</td>
+    </tr>
+    <tr>
+        <td>Mínimo para relevância</td>
+        <td>@(result.MinimumForRelevance)</td>
+    </tr>
+    <tr>
+        <td>Tem relevância?</td>
+        <td>@((result.HasRelevance) ? "Sim" : "Não")</td>
+    </tr>
+</table>

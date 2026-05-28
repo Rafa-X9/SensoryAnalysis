@@ -43,7 +43,7 @@
                 <td>@(test.Judgers.Count)</td>
                 <td>@(test.CreatedAt.ToString("dd/MM/yyyy"))</td>
                 <td>
-                    <a href="">Abrir</a>
+                    <a asp-controller="Test" asp-action="ViewTest" asp-route-id="@(test.Id)">Abrir</a>
                     <a asp-controller="Test" asp-action="Delete" asp-route-id="@(test.Id)">Deletar</a>
                 </td>
             </tr>

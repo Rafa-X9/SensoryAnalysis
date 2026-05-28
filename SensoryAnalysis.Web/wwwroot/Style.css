@@ -91,6 +91,12 @@ main {
             background-color: #535C49;
         }
 
+button.small-button {
+    width: 60px;
+    height: 20px;
+    font-size: 14px;
+}
+
 .width-450px {
     width: 450px;
 }
