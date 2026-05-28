@@ -16,7 +16,7 @@ public class TriangularTestTests
 
     public TriangularTestTests()
     {
-        _manager = new TestManagerService(new TestServiceFactory());
+        _manager = new TestManagerService(new TestServiceFactory(), null, false);
         _testService = new TriangularTestService();
     }
 

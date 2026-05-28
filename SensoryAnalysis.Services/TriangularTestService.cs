@@ -34,7 +34,7 @@ public class TriangularTestService : ITestService
             }
         }
 
-        if ((numbers[0] < numbers[1] && numbers[1] < numbers[2])
+        while ((numbers[0] < numbers[1] && numbers[1] < numbers[2])
             || (numbers[0] > numbers[1] && numbers[1] > numbers[2]))
         {
             numbers.Sort((n1, n2) => _random.Next(-2, 3));

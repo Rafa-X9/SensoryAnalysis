@@ -1,7 +1,9 @@
-﻿using SensoryAnalysis.Contracts;
+﻿using Microsoft.Extensions.Configuration;
+using SensoryAnalysis.Contracts;
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services.Helpers;
+using System.Text.Json;
 
 namespace SensoryAnalysis.Services;
 /// <summary>
@@ -11,17 +13,45 @@ public class TestManagerService : ITestManagerService
 {
     private readonly List<Test> _tests;
     private readonly ITestServiceFactory _serviceFactory;
+    private readonly bool _useDatabase;
+    private readonly string _dbPath = string.Empty;
 
-    public TestManagerService(ITestServiceFactory serviceFactory)
+    public TestManagerService(ITestServiceFactory serviceFactory,
+        IConfiguration? configuration,
+        bool useDatabase = true)
     {
         _tests = [];
         _serviceFactory = serviceFactory;
+        _useDatabase = useDatabase;
 
-        _tests.Add(new("Teste de pão de queijo",
-            TestTypes.Triangular,
-            Significances._5,
-            nameOfSample1: "Polvilho misto",
-            nameOfSample2: "Polvilho azedo"));
+        if (configuration is not null && useDatabase)
+        {
+            string? path = configuration["DbFilePath"];
+            if (path is null)
+            {
+                throw new InvalidOperationException("No DbFilePath registered");
+            }
+            _dbPath = path;
+            using StreamReader sr = new(path);
+            string? line = sr.ReadLine();
+            if (!string.IsNullOrWhiteSpace(line))
+            {
+                var list = JsonSerializer.Deserialize<List<Test>>(line);
+                if (list is null)
+                {
+                    throw new InvalidOperationException("DbFilePath has invalid JSON");
+                }
+                _tests = list;
+            }
+        }
+        else
+        {
+            _tests.Add(new("Teste de pão de queijo",
+                TestTypes.Triangular,
+                Significances._5,
+                nameOfSample1: "Polvilho misto",
+                nameOfSample2: "Polvilho azedo"));
+        }
     }
 
     #region Creating
@@ -32,6 +62,7 @@ public class TestManagerService : ITestManagerService
         ValidatorHelper.ValidateObject(request);
         Test test = request.ToTest();
         _tests.Add(test);
+        Save();
         return test.ToTestResponse();
     }
 
@@ -57,6 +88,7 @@ public class TestManagerService : ITestManagerService
         ITestService service = _serviceFactory.GetTestService(test.TestType);
         judge.Samples = service.GenerateSamples(differentSample: lessFrequentType);
 
+        Save();
         test.Judgers.Add(judge);
         return test.ToTestResponse();
     }
@@ -107,6 +139,7 @@ public class TestManagerService : ITestManagerService
             throw new ArgumentException("Invalid sample id");
         }
         judger.Answer = sample.Number;
+        Save();
         return test.ToTestResponse();
     }
 
@@ -135,6 +168,7 @@ public class TestManagerService : ITestManagerService
             throw new ArgumentException("Invalid sample number");
         }
         judger.Answer = sample.Number;
+        Save();
         return test.ToTestResponse();
     }
 
@@ -146,6 +180,7 @@ public class TestManagerService : ITestManagerService
             throw new ArgumentException("Invalid test Id");
         }
         ITestService service = _serviceFactory.GetTestService(test.TestType);
+        Save();
         return service.GetTestResult(test);
     }
 
@@ -158,7 +193,19 @@ public class TestManagerService : ITestManagerService
         int before = _tests.Count;
         _tests.RemoveAll(test => test.Id == testId);
         int after = _tests.Count;
+        Save();
         return before > after;
+    }
+
+    #endregion
+
+    #region Saving
+
+    private void Save()
+    {
+        if (!_useDatabase || _dbPath == string.Empty) return;
+        using StreamWriter sw = new(_dbPath, false);
+        sw.Write(JsonSerializer.Serialize(_tests));
     }
 
     #endregion

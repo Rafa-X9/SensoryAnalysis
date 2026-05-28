@@ -74,3 +74,5 @@ C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAn
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\compressed\4m2vt5enuu-{0}-k16ffvchh9-k16ffvchh9.gz
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\bin\Debug\net9.0\Rotativa.AspNetCore.dll
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\SensoryAnalysis.Web.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll

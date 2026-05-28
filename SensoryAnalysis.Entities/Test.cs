@@ -11,6 +11,12 @@ public class Test
     public string? NameOfSample1 { get; set; }
     public string? NameOfSample2 { get; set; }
 
+    public Test()
+    {
+        Name = string.Empty;
+        Judgers = [];
+    }
+
     public Test(string name,
         TestTypes testType,
         Significances sensitivity,
