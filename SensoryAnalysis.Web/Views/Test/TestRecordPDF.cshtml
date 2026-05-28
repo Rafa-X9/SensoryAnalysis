@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+
+@model TestResponse
+@{
+    Layout = null;
+}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test record</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        div.record {
+            border: 1px solid black;
+            margin: 15px 15px 25px;
+            padding: 3px 15px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+        .sample-options-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .sample-option {
+            display: inline-block;
+            margin-right: 50px;
+            vertical-align: top;
+            text-align: center;
+        }
+
+            .sample-option p {
+                margin: 0 0 5px 0;
+            }
+
+        div.square {
+            display: inline-block;
+            border: 1px solid black;
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    @{
+        string type = Model.TestType switch
+        {
+            TestTypes.Triangular => "triangular",
+            TestTypes.DuoTrio => "duo-trio",
+            _ => ""
+        };
+    }
+
+    @foreach (JudgerResponse judger in Model.Judgers)
+    {
+        <div class="record">
+
+            <h1>Teste @(type)</h1>
+            <p>Nome: _______________________ Data: ___/___/______</p>
+            <p>@(ViewBag.Instructions)</p>
+
+            <div class="sample-options-container">
+                @foreach (Sample sample in judger.Samples)
+                {
+                    <div class="sample-option">
+                        <p>@(sample.Number)</p>
+                        <div class="square"></div>
+                    </div>
+                }
+            </div>
+
+            <p>Comentários: ____________________________________</p>
+        </div>
+    }
+    
+</body>
+
+</html>

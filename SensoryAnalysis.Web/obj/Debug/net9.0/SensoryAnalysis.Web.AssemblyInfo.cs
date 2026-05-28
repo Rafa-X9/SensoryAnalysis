@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SensoryAnalysis.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1eabbe77eea99e4222275f50d13a00f4102ddfd4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c508f5fced3bd176c7d7065e8e0ed45207e96fe4")]
 [assembly: System.Reflection.AssemblyProductAttribute("SensoryAnalysis.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SensoryAnalysis.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

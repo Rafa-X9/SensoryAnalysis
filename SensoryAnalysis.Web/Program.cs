@@ -1,3 +1,4 @@
+using Rotativa.AspNetCore;
 using SensoryAnalysis.Contracts;
 using SensoryAnalysis.Services;
 
@@ -8,4 +9,5 @@ builder.Services.AddSingleton<ITestServiceFactory, TestServiceFactory>();
 var app = builder.Build();
 app.MapControllers();
 app.UseStaticFiles();
+RotativaConfiguration.Setup("wwwroot");
 app.Run();

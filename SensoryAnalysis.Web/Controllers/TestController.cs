@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Rotativa.AspNetCore;
 using SensoryAnalysis.Contracts;
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
@@ -109,5 +110,24 @@ public class TestController : Controller
         }
         _testManager.AddAnswerToTest(testId, judgerId, (answer == -1) ? null : answer);
         return RedirectToAction("ViewTest", new { id = testId });
+    }
+
+    [Route("testrecordpdf")]
+    public IActionResult TestRecordPDF(Guid id)
+    {
+        TestResponse? test = _testManager.GetTestById(id);
+        if (test is null) return RedirectToAction("Index");
+
+        ViewBag.Instructions = "Você está recebendo 3 amostras codificadas. " +
+            "Duas amostras são iguais e uma diferente. Por favor, avalie " +
+            "as amostras da esquerda para a direita. Marque a amostra " +
+            "diferente.";
+
+        return new ViewAsPdf("TestRecordPDF", test, ViewData)
+        {
+            PageSize = Rotativa.AspNetCore.Options.Size.A4,
+            PageMargins = new(20, 20, 20, 20)
+        };
+        //return View(test);
     }
 }

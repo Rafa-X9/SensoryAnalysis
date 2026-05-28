@@ -13,6 +13,8 @@
 
 <p>Teste @(type)</p>
 <p>Criado em: @(Model.CreatedAt.ToString("dd/MM/yyyy"))</p>
+<a asp-controller="Test" asp-action="TestRecordPDF" asp-route-id="@(Model.Id)">Baixar fichas</a>
+
 <p>
     Adicionar julgadores:
     <span> </span><a asp-controller="Test" asp-action="AddJudger" asp-route-id="@(Model.Id)" asp-route-amount="1">1</a><span> </span>
