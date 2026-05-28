@@ -934,8 +934,8 @@
     },
     "SensoryAnalysis.Contracts/1.0.0": {
       "type": "project",
-      "path": "../Contracts/SensoryAnalysis.Contracts.csproj",
-      "msbuildProject": "../Contracts/SensoryAnalysis.Contracts.csproj"
+      "path": "../SensoryAnalysis.Contracts/SensoryAnalysis.Contracts.csproj",
+      "msbuildProject": "../SensoryAnalysis.Contracts/SensoryAnalysis.Contracts.csproj"
     },
     "SensoryAnalysis.Entities/1.0.0": {
       "type": "project",
@@ -990,8 +990,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\Contracts\\SensoryAnalysis.Contracts.csproj": {
-              "projectPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\Contracts\\SensoryAnalysis.Contracts.csproj"
+            "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Contracts\\SensoryAnalysis.Contracts.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Contracts\\SensoryAnalysis.Contracts.csproj"
             },
             "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Services\\SensoryAnalysis.Services.csproj": {
               "projectPath": "C:\\Users\\Lenovo\\Desktop\\Rafael\\Projetos\\projetosaspnet\\SensoryAnalysis\\SensoryAnalysis.Services\\SensoryAnalysis.Services.csproj"

@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\SensoryAnalysis.Contracts.csproj" />
+    <ProjectReference Include="..\SensoryAnalysis.Contracts\SensoryAnalysis.Contracts.csproj" />
     <ProjectReference Include="..\SensoryAnalysis.Services\SensoryAnalysis.Services.csproj" />
   </ItemGroup>
 

@@ -8,7 +8,14 @@ public class Test
     public List<Judger> Judgers { get; set; }
     public DateTime CreatedAt { get; set; }
 
-    public Test(string name, TestTypes testType, Significances sensitivity)
+    public string? NameOfSample1 { get; set; }
+    public string? NameOfSample2 { get; set; }
+
+    public Test(string name,
+        TestTypes testType,
+        Significances sensitivity,
+        string? nameOfSample1 = null,
+        string? nameOfSample2 = null)
     {
         Id = Guid.NewGuid();
         Name = name;
@@ -16,5 +23,7 @@ public class Test
         Significance = sensitivity;
         Judgers = [];
         CreatedAt = DateTime.Now;
+        NameOfSample1 = nameOfSample1;
+        NameOfSample2 = nameOfSample2;
     }
 }

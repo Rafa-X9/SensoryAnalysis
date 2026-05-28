@@ -1,0 +1,58 @@
+﻿@model TestAddRequest
+@{
+    ViewBag.Title = "Create Test";
+}
+
+<h2>Novo teste</h2>
+
+<form asp-controller="Test" asp-action="Create" method="post">
+    <div class="input-fields-group">
+        <div class="input-field">
+            <label asp-for="Name">Nome</label>
+            <br>
+            <input class="width-450px" asp-for="Name">
+        </div>
+    </div>
+
+    <div class="input-fields-group">
+        <div class="input-field">
+            <label asp-for="TestType">Tipo</label>
+            <br>
+            <select class="width-450px" asp-for="TestType">
+                @foreach ((string name, TestTypes type) t in ViewBag.TestTypes)
+                {
+                    <option value="@((int)t.type)">@(t.name)</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="input-fields-group">
+        <div class="input-field">
+            <label asp-for="Significance">Tipo</label>
+            <br>
+            <select class="width-450px" asp-for="Significance">
+                @foreach ((string name, Significances significance) s in ViewBag.Significances)
+                {
+                    <option value="@((int)s.significance)">@(s.name)</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="input-fields-group">
+        <div class="input-field">
+            <label asp-for="NameOfSample1">Nome da amostra 1</label>
+            <br>
+            <input class="width-200px" asp-for="NameOfSample1">
+        </div>
+
+        <div class="input-field">
+            <label asp-for="NameOfSample2">Nome da amostra 2</label>
+            <br>
+            <input class="width-200px" asp-for="NameOfSample2">
+        </div>
+    </div>
+
+    <button>Criar</button>
+</form>

@@ -1,0 +1,112 @@
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: #F7F3ED;
+    margin: 0;
+}
+
+header nav {
+    display: flex;
+    background-color: #556B2F;
+    padding: 15px;
+}
+
+    header nav a,
+    header nav ul li a {
+        text-decoration: none;
+        color: #cdcdcd;
+        border-radius: 10px;
+        padding: 7px;
+    }
+
+    header nav ul {
+        display: flex;
+        list-style-type: none;
+        align-items: center;
+    }
+
+        header nav ul li {
+            margin-left: 21px;
+            font-size: 21px;
+        }
+
+            header nav a:hover,
+            header nav ul li:hover {
+                background-color: #313d1b;
+            }
+
+main {
+    font-family: 'Trebuchet MS', sans-serif;
+    color: #1e2021;
+    margin: 30px 20px;
+}
+
+    main h2 {
+        font-size: 30px;
+    }
+
+    main p a {
+        font-size: 16px;
+    }
+
+    main table {
+        background-color: rgb(198, 198, 198);
+        border-collapse: collapse;
+    }
+
+        main table tr th {
+            background-color: gray;
+            border: 2px solid rgb(30, 30, 30);
+            padding: 0;
+            padding: 5px 15px;
+        }
+
+        main table tr td {
+            border: 2px solid gray;
+            padding: 3px 10px;
+            text-align: center;
+        }
+
+    main div.input-fields-group {
+        margin: 25px 0;
+        display: flex;
+    }
+
+    main div.input-field input, main div.input-field select {
+        height: 30px;
+        border-radius: 5px;
+        border: 1.5px solid black;
+        font-size: 16px;
+        margin-right: 20px;
+    }
+
+    main button {
+        background-color: #A3B18A;
+        width: 100px;
+        height: 40px;
+        border-radius: 7px;
+        font-size: 20px;
+    }
+
+        main button:hover {
+            background-color: #535C49;
+        }
+
+.width-450px {
+    width: 450px;
+}
+
+.width-200px {
+    width: 200px;
+}
+
+.centralize {
+    justify-items: center;
+}
+
+footer {
+    background-color: #556B2F;
+    text-align: center;
+    color: #cdcdcd;
+    padding: 30px 0;
+    font-size: 20px;
+}

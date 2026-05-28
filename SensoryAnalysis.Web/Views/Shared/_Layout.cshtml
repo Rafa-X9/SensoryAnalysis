@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensory Analysis</title>
+    <link rel="stylesheet" href="~/Style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="">
+                <a asp-controller="Home" asp-action="Index"><h1>Análise sensorial</h1></a>
+            </a>
+            <ul>
+                <li><a asp-controller="Test" asp-action="Index">Meus testes</a></li>
+                <li><a asp-controller="Home" asp-action="About">Sobre</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer>
+        Feito por Rafael em 2026
+    </footer>
+
+</body>
+
+</html>

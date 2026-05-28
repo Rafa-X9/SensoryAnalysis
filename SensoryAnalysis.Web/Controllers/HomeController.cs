@@ -15,4 +15,10 @@ public class HomeController : Controller
     {
         return RedirectToAction("Index");
     }
+
+    [Route("about")]
+    public IActionResult About()
+    {
+        return View();
+    }
 }

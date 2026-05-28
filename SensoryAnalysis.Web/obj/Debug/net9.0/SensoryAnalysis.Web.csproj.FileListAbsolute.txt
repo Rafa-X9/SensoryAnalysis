@@ -71,3 +71,4 @@ C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAn
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\SensoryAnalysis.Web.csproj.AssemblyReference.cache
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\SensoryAnalysis.Web.sourcelink.json
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\SensoryA.F8429A38.Up2Date
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\compressed\4m2vt5enuu-{0}-0y0hk6txm0-0y0hk6txm0.gz

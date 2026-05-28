@@ -1,0 +1,2 @@
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\wwwroot\Style.css
+wwwroot\Style.css

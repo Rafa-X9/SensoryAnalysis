@@ -1,0 +1,52 @@
+﻿@model List<TestResponse>
+@{
+    ViewBag.Title = "My Tests";
+}
+
+<h2>Meus testes</h2>
+
+<p><a a asp-controller="Test" asp-action="Create">Criar teste</a></p>
+
+<div class="centralize">
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Significância</th>
+            <th>Nº de julgadores</th>
+            <th>Criado em</th>
+            <th>Ações</th>
+        </tr>
+        @foreach (TestResponse test in Model)
+        {
+            string testTypeInPt = test.TestType switch
+            {
+                TestTypes.Triangular => "Triangular",
+                TestTypes.DuoTrio => "Duo-trio",
+                _ => "Teste sensorial"
+            };
+
+            string significance = test.Significance switch
+            {
+                Significances._01 => "0.1%",
+                Significances._1 => "1%",
+                Significances._5 => "5%",
+                Significances._10 => "10%",
+                Significances._20 => "20%",
+                _ => "Nenhuma"
+            };
+
+            <tr>
+                <td>@(test.Name)</td>
+                <td>@(testTypeInPt)</td>
+                <td>@(significance)</td>
+                <td>@(test.Judgers.Count)</td>
+                <td>@(test.CreatedAt.ToString("dd/MM/yyyy"))</td>
+                <td>
+                    <a href="">Abrir</a>
+                    <a href="">Deletar</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoryAnalysis.Web", "SensoryAnalysis.Web\SensoryAnalysis.Web.csproj", "{C982BB48-275E-4326-8C3A-E92B08E5FC54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoryAnalysis.Contracts", "Contracts\SensoryAnalysis.Contracts.csproj", "{66DEBC73-7999-4F49-90C7-BAD72C36B6F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoryAnalysis.Contracts", "SensoryAnalysis.Contracts\SensoryAnalysis.Contracts.csproj", "{66DEBC73-7999-4F49-90C7-BAD72C36B6F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoryAnalysis.Entities", "SensoryAnalysis.Entities\SensoryAnalysis.Entities.csproj", "{F77C8761-BBF4-45DE-83DC-C9491DFA248C}"
 EndProject
