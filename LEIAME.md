@@ -1,4 +1,4 @@
-\# Sensory Analysis (Análise Sensorial)
+# Sensory Analysis (Análise Sensorial)
 
 
 
@@ -10,33 +10,33 @@ Essa área é largamente utilizada nas indústrias de alimentos, bebidas, maquia
 
 
 
-Há vários tipos de análise sensorial, cada qual com um objetivo diferente. Testes discriminativos verificam a existência de diferenças notáveis entre amostras; testes descritivos descrevem os atributos sensoriais de um produto; e testes afetivos avaliam a preferência e a satisfação dos consumidores. \*\*Essa aplicação realiza testes discriminativos.\*\*
+Há vários tipos de análise sensorial, cada qual com um objetivo diferente. Testes discriminativos verificam a existência de diferenças notáveis entre amostras; testes descritivos descrevem os atributos sensoriais de um produto; e testes afetivos avaliam a preferência e a satisfação dos consumidores. **Essa aplicação realiza testes discriminativos.**
 
 
 
 Por enquanto, estes são os testes que essa aplicação consegue fazer:
 
-\- Testes triangulares: o teste discriminativo mais comum. Seu objetivo é verificar se existe diferença perceptível entre a amostra A e a amostra B. Nela, o julgador recebe 3 amostras, duas são iguais e uma é diferente. O julgador marca a amostra que ele acreditar ser a diferente.
+- **Testes triangulares:** o teste discriminativo mais comum. Seu objetivo é verificar se existe diferença perceptível entre a amostra A e a amostra B. Nela, o julgador recebe 3 amostras, duas são iguais e uma é diferente. O julgador marca a amostra que ele acreditar ser a diferente.
 
 
 
-\# Afazeres
+# Afazeres
 
 
 
-\- Terminar de escrever esse LEIAME
+- Terminar de escrever esse LEIAME
 
-\- Adicionar testes duo-trio
+- Adicionar testes duo-trio
 
-\- Descobrir como permitir que apenas um clique de botão salve as respostas de todos os julgadores
-
-
-
-\# Licença
+- Descobrir como permitir que apenas um clique de botão salve as respostas de todos os julgadores
 
 
 
-Copyright 2026 RafaX9
+# Licença
+
+
+
+Copyright (c) 2026 RafaX9
 
 
 
