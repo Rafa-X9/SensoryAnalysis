@@ -1,4 +1,4 @@
-\# Sensory Analysis
+# Sensory Analysis
 
 
 
@@ -14,7 +14,7 @@ There are several types of sensory analysis, each serving a different purpose. D
 
 
 
-\*\*This application focuses on discriminative tests.\*\*
+**This application focuses on discriminative tests.**
 
 
 
@@ -22,23 +22,23 @@ Currently, the application supports the following test:
 
 
 
-\- \*\*Triangle Test:\*\* The triangle test is the most common discriminative tests. Its purpose is to determine whether a perceptible difference exists between Sample A and Sample B. In this test, the judger receives three samples. Two samples are identical, while one is different. The evaluator must identify which sample they believe is the different one.
+- **Triangle Test:** The triangle test is the most common discriminative tests. Its purpose is to determine whether a perceptible difference exists between Sample A and Sample B. In this test, the judger receives three samples. Two samples are identical, while one is different. The evaluator must identify which sample they believe is the different one.
 
 
 
-\# To-Do
+# To-Do
 
 
 
-\* Complete this README.
+- Complete this README.
 
-\* Add Duo-Trio tests.
+- Add Duo-Trio tests.
 
-\* Implement a way to save all judgers' responses with a single button click.
+- Implement a way to save all judgers' responses with a single button click.
 
 
 
-\# License
+# License
 
 
 
