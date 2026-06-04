@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+
+@model TestResponse
+@{
+    Layout = null;
+}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheet of paper</title>
+    <style>
+        div.record {
+            margin: 20px 30px;
+            border-bottom: 3px solid black;
+            white-space: nowrap;
+        }
+
+            div.record h2 {
+                display: inline-block;
+                margin-right: 50px;
+                vertical-align: middle;
+            }
+
+            div.record ul {
+                display: inline-block;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                vertical-align: middle;
+            }
+
+                div.record ul li {
+                    display: inline-block;
+                    margin-right: 50px;
+                    font-size: 50px;
+                }
+
+    </style>
+</head>
+
+<body>
+    
+    @for (int i = 0; i < Model.Judgers.Count; i++)
+    {
+        JudgerResponse judger = Model.Judgers[i];
+        string samples = "";
+
+        foreach (Sample sample in judger.Samples)
+        {
+            if (sample.SampleType == SampleTypes.Sample1)
+            {
+                samples += "1";
+            }
+            else
+            {
+                samples += "2";
+            }
+        }
+
+        <div class="record">
+            <h2>Ficha @(i + 1) - @(samples)</h2>
+
+            <ul>
+                @foreach (Sample sample in judger.Samples)
+                {
+                    <li>@(sample.Number)</li>
+                }
+            </ul>
+        </div>
+    }
+
+</body>
+
+</html>

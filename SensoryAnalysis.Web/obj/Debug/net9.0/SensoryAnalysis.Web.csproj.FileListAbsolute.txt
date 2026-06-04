@@ -74,5 +74,5 @@ C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAn
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\SensoryAnalysis.Web.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
-C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\compressed\4m2vt5enuu-{0}-37wy658vrc-37wy658vrc.gz
+C:\Users\Lenovo\Desktop\Rafael\Projetos\projetosaspnet\SensoryAnalysis\SensoryAnalysis.Web\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

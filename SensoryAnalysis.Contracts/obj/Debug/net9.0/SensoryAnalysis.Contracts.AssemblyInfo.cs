@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SensoryAnalysis.Contracts")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0161e60b266c319459a373f8fc40bd7ecb924a59")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bf206de0bd5f8e3fbba81e9012aa692be57ca64f")]
 [assembly: System.Reflection.AssemblyProductAttribute("SensoryAnalysis.Contracts")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SensoryAnalysis.Contracts")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

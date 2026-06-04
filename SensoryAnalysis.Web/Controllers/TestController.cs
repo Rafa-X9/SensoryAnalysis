@@ -130,4 +130,16 @@ public class TestController : Controller
         };
         //return View(test);
     }
+
+    [Route("SamplePaperSheetPDF")]
+    public IActionResult SamplePaperSheetPDF(Guid id)
+    {
+        TestResponse? test = _testManager.GetTestById(id);
+        if (test is null) return RedirectToAction("Index");
+        return new ViewAsPdf("SamplePaperSheetPDF", test, ViewData)
+        {
+            PageSize = Rotativa.AspNetCore.Options.Size.A4,
+            PageMargins = new(20, 20, 20, 20)
+        };
+    }
 }

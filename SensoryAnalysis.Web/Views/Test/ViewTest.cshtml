@@ -14,6 +14,7 @@
 <p>Teste @(type)</p>
 <p>Criado em: @(Model.CreatedAt.ToString("dd/MM/yyyy"))</p>
 <a asp-controller="Test" asp-action="TestRecordPDF" asp-route-id="@(Model.Id)">Baixar fichas</a>
+<a asp-controller="Test" asp-action="SamplePaperSheetPDF" asp-route-id="@(Model.Id)">Baixar papéizinhos</a>
 
 <p>
     Adicionar julgadores:
