@@ -28,7 +28,10 @@ public class TriangularTestService : ITestService
         while (numbers.Count < 3)
         {
             int n = _random.Next(100, 999);
-            if (!n.IsIn(100, 333, 666, 777, 999) && !numbers.Contains(n))
+            if (!n.IsIn(100, 333, 666, 777, 999)
+                && !numbers.Contains(n)
+                && !numbers.Any(number => number % 100 == n % 100)
+                && !numbers.Any(number => number / 100 == n / 100))
             {
                 numbers.Add(n);
             }

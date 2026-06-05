@@ -13,6 +13,11 @@
 
 <p>Teste @(type)</p>
 <p>Criado em: @(Model.CreatedAt.ToString("dd/MM/yyyy"))</p>
+@if (Model.NameOfSample1 is not null && Model.NameOfSample2 is not null)
+{
+    <p>Amostra 1: @(Model.NameOfSample1)</p>
+    <p>Amostra 2: @(Model.NameOfSample2)</p>
+}
 <a asp-controller="Test" asp-action="TestRecordPDF" asp-route-id="@(Model.Id)">Baixar fichas</a>
 <a asp-controller="Test" asp-action="SamplePaperSheetPDF" asp-route-id="@(Model.Id)">Baixar papéizinhos</a>
 
