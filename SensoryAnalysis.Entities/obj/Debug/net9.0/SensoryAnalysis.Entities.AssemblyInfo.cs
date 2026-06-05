@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SensoryAnalysis.Entities")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d17f260b2ea8b269e2e27f416c8529dc0103b32")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f173a2843aced3676d9a89da947b1cda2e9056e")]
 [assembly: System.Reflection.AssemblyProductAttribute("SensoryAnalysis.Entities")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SensoryAnalysis.Entities")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

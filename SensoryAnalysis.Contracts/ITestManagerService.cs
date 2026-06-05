@@ -66,6 +66,14 @@ public interface ITestManagerService
     /// <returns>True if sucessful, false otherwise</returns>
     bool DeleteTest(Guid testId);
 
+    /// <summary>
+    /// Removes a judger from a test and returns whether it was sucessful
+    /// </summary>
+    /// <param name="testId">The test to remove a judger from</param>
+    /// <param name="judgerId">The judger to remove</param>
+    /// <returns>True if removal is sucessful, false otherwise</returns>
+    bool RemoveJudgerFromTest(Guid testId, Guid judgerId);
+
     #endregion
 
     #region Making the test

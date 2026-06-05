@@ -112,6 +112,14 @@ public class TestController : Controller
         return RedirectToAction("ViewTest", new { id = testId });
     }
 
+    [Route("removejudger")]
+    [HttpGet]
+    public IActionResult RemoveJudgerFromTest(Guid testId, Guid judgerId)
+    {
+        _testManager.RemoveJudgerFromTest(testId, judgerId);
+        return RedirectToAction("ViewTest", new { id = testId });
+    }
+
     [Route("testrecordpdf")]
     public IActionResult TestRecordPDF(Guid id)
     {

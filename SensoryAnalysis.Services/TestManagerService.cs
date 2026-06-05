@@ -197,6 +197,16 @@ public class TestManagerService : ITestManagerService
         return before > after;
     }
 
+    public bool RemoveJudgerFromTest(Guid testId, Guid judgerId)
+    {
+        Test? test = _tests.FirstOrDefault(t => t.Id == testId);
+        if (test is null) return false;
+        Judger? judger = test.Judgers.FirstOrDefault(j => j.Id == judgerId);
+        if (judger is null) return false;
+        test.Judgers.Remove(judger);
+        return true;
+    }
+
     #endregion
 
     #region Saving

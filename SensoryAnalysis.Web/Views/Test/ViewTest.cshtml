@@ -86,7 +86,30 @@
 
                 <button class="small-button">Salvar</button>
             </td>
-            <td><a href="">Remover</a></td>
+            <td>
+                <a href="Remove judger" id="@(judger.Id)">Remover</a>
+
+                <a id="@(judger.Id)AreYouSure"
+                   style="display: none;"
+                   asp-controller="Test"
+                   asp-action="RemoveJudgerFromTest"
+                   asp-route-testId="@(Model.Id)"
+                   asp-route-judgerId="@(judger.Id)">Tem certeza?</a>
+
+                <script>
+                    const link = document.getElementById("@(judger.Id)");
+                    const sure = document.getElementById("@(judger.Id)AreYouSure");
+
+                    link.addEventListener("click", (event) => {
+                        if (link.getAttribute("href") == "Remove judger") {
+                            event.preventDefault();
+                        }
+                        link.innerHTML = sure.innerHTML;
+                        link.setAttribute("href", sure.getAttribute("href"));
+                    });
+                </script>
+
+            </td>
         </tr>
         </form>
     }
