@@ -125,6 +125,7 @@ public class TestController : Controller
 
         return new ViewAsPdf("TestRecordPDF", test, ViewData)
         {
+            FileName = _nameToFileName(test.Name) + " - Fichas.pdf",
             PageSize = Rotativa.AspNetCore.Options.Size.A4,
             PageMargins = new(20, 20, 20, 20)
         };
@@ -138,8 +139,27 @@ public class TestController : Controller
         if (test is null) return RedirectToAction("Index");
         return new ViewAsPdf("SamplePaperSheetPDF", test, ViewData)
         {
+            FileName = _nameToFileName(test.Name) + " - Numeros.pdf",
             PageSize = Rotativa.AspNetCore.Options.Size.A4,
             PageMargins = new(20, 20, 20, 20)
         };
+    }
+
+    private static string _nameToFileName(string name)
+    {
+        name = name.Trim();
+        name = name.Trim('.');
+        name = name.Trim('-');
+        name = name.Replace("<", "");
+        name = name.Replace(">", "");
+        name = name.Replace(":", "");
+        name = name.Replace("\"", "");
+        name = name.Replace("/", "");
+        name = name.Replace("\\", "");
+        name = name.Replace("|", "");
+        name = name.Replace("?", "");
+        name = name.Replace("*", "");
+        name = name.Replace("ã", "a");
+        return name;
     }
 }
