@@ -102,14 +102,13 @@ public class TestController : Controller
     {
         TestResponse? test = _testManager.GetTestById(testId);
         if (test is null) return RedirectToAction("Index");
-
-        if (!test.Judgers.Any(j => j.Id == judgerId &&
+        if (test.Judgers.Any(j => j.Id == judgerId &&
             (answer == -1 || j.Samples.Any(s => s.Number == answer))))
         {
-            return RedirectToAction("Index");
+            _testManager.AddAnswerToTest(testId, judgerId, (answer == -1) ? null : answer);
         }
-        _testManager.AddAnswerToTest(testId, judgerId, (answer == -1) ? null : answer);
-        return RedirectToAction("ViewTest", new { id = testId });
+        ViewBag.Result = _testManager.GetTestResults(test.Id);
+        return PartialView("ResultsTablePartial", test);
     }
 
     [Route("removejudger")]

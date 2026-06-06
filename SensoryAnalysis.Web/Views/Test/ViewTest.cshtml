@@ -95,7 +95,9 @@
                     document.getElementById("@(judger.Id)Submit").addEventListener("click", async () => {
                         const url = document.getElementById("@(judger.Id)SubmitUrl");
                         const dropdown = document.getElementById("@(judger.Id)Answer");
-                        await fetch(url.getAttribute("href") + "&answer=" + dropdown.value, { method: "POST" });
+                        const response = await fetch(url.getAttribute("href") + "&answer=" + dropdown.value, { method: "POST" });
+                        const body = await response.text();
+                        document.getElementById("results-table").innerHTML = body;
                     });
                 </script>
 
@@ -142,7 +144,7 @@
 
 <h2>Resultado</h2>
 
-<table>
+<table id="results-table">
     @{
         TestResult result = ViewBag.Result;
     }

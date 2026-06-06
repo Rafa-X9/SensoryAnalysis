@@ -1,0 +1,30 @@
+﻿@model TestResponse
+
+@{
+    TestResult result = ViewBag.Result;
+}
+
+<tr>
+    <td>Quantidade de julgadores</td>
+    <td>@(result.TotalJudgers)</td>
+</tr>
+<tr>
+    <td>Quantidade de respostas</td>
+    <td>@(result.TotalAnswers)</td>
+</tr>
+<tr>
+    <td>Respostas corretas</td>
+    <td>@(result.CorrectAnswers)</td>
+</tr>
+<tr>
+    <td>Respostas incorretas</td>
+    <td>@(result.WrongAnswers)</td>
+</tr>
+<tr>
+    <td>Mínimo para relevância</td>
+    <td>@(result.MinimumForRelevance)</td>
+</tr>
+<tr>
+    <td>Tem relevância?</td>
+    <td>@((result.HasRelevance) ? "Sim" : "Não")</td>
+</tr>
