@@ -59,32 +59,46 @@
 
         string numbers = string.Join(" - ", judger.Samples.Select(s => s.Number.ToString()));
 
-        <form asp-controller="Test" asp-action="SubmitAnswer" method="post">
         <tr>
             <td>@(i + 1)</td>
             <td>@(samples)</td>
             <td>@(numbers)</td>
             <td>
-                <input name="testId" value="@(Model.Id)" hidden />
-                <input name="judgerId" value="@(judger.Id)" hidden />
-
-                <select name="answer">
+                <select name="answer" id="@(judger.Id)Answer">
                     <option value="-1"> - </option>
                     @foreach ((int number, bool isSelected) sampleOption in sampleOptions)
                     {
                         string displayNumber = (sampleOption.number == -1) ? " - " : sampleOption.number.ToString();
                         if (sampleOption.isSelected)
                         {
-                            <option selected="selected">@(displayNumber)</option>
+                            <option value="@(sampleOption.number)" selected="selected">@(displayNumber)</option>
                         }
                         else
                         {
                             <option>@(displayNumber)</option>
                         }
                     }
+
                 </select>
 
-                <button class="small-button">Salvar</button>
+                <a style="display:none;"
+                   id="@(judger.Id)SubmitUrl"
+                   asp-controller="Test"
+                   asp-action="SubmitAnswer"
+                   asp-route-testId="@(Model.Id)"
+                   asp-route-judgerId="@(judger.Id)">
+                </a>
+
+                <button class="small-button" id="@(judger.Id)Submit">Salvar</button>
+
+                <script>
+                    document.getElementById("@(judger.Id)Submit").addEventListener("click", async () => {
+                        const url = document.getElementById("@(judger.Id)SubmitUrl");
+                        const dropdown = document.getElementById("@(judger.Id)Answer");
+                        await fetch(url.getAttribute("href") + "&answer=" + dropdown.value, { method: "POST" });
+                    });
+                </script>
+
             </td>
             <td>
                 <a href="Remove judger" id="@(judger.Id)">Remover</a>
@@ -97,8 +111,20 @@
                    asp-route-judgerId="@(judger.Id)">Tem certeza?</a>
 
                 <script>
-                    const link = document.getElementById("@(judger.Id)");
-                    const sure = document.getElementById("@(judger.Id)AreYouSure");
+                    @if (i == 0)
+                    {
+                          <text>
+                            let link = document.getElementById("@(judger.Id)");
+                            let sure = document.getElementById("@(judger.Id)AreYouSure");
+                          </text>
+                    }
+                    else
+                    {
+                          <text>
+                            link = document.getElementById("@(judger.Id)");
+                            sure = document.getElementById("@(judger.Id)AreYouSure");
+                          </text>
+                    }
 
                     link.addEventListener("click", (event) => {
                         if (link.getAttribute("href") == "Remove judger") {
@@ -111,7 +137,6 @@
 
             </td>
         </tr>
-        </form>
     }
 </table>
 
