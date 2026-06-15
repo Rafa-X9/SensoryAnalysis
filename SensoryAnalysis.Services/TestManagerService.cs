@@ -3,6 +3,7 @@ using SensoryAnalysis.Contracts;
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services.Helpers;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 
 namespace SensoryAnalysis.Services;
@@ -63,7 +64,7 @@ public class TestManagerService : ITestManagerService
         Test test = request.ToTest();
         _tests.Add(test);
         Save();
-        return test.ToTestResponse();
+        return TestToTestResponse(test);
     }
 
     public TestResponse AddJudgerToTest(Guid testId)
@@ -90,7 +91,7 @@ public class TestManagerService : ITestManagerService
 
         Save();
         test.Judgers.Add(judge);
-        return test.ToTestResponse();
+        return TestToTestResponse(test);
     }
 
     #endregion
@@ -99,12 +100,14 @@ public class TestManagerService : ITestManagerService
 
     public TestResponse? GetTestById(Guid id)
     {
-        return _tests.FirstOrDefault(t => t.Id == id)?.ToTestResponse();
+        Test? test = _tests.FirstOrDefault(t => t.Id == id);
+        if (test is null) return null;
+        return TestToTestResponse(test);
     }
 
     public List<TestResponse> GetAllTests()
     {
-        return _tests.Select(t => t.ToTestResponse()).ToList();
+        return _tests.Select(TestToTestResponse).ToList();
     }
 
     public List<JudgerResponse> GetJudgersFromTest(Guid testId)
@@ -114,7 +117,7 @@ public class TestManagerService : ITestManagerService
         {
             throw new ArgumentException("No matching Id");
         }
-        return test.Judgers.Select(j => j.ToJudgerResponse()).ToList();
+        return TestToTestResponse(test).Judgers.ToList();
     }
 
     #endregion
@@ -140,7 +143,7 @@ public class TestManagerService : ITestManagerService
         }
         judger.Answer = sample.Number;
         Save();
-        return test.ToTestResponse();
+        return TestToTestResponse(test);
     }
 
     public TestResponse AddAnswerToTest(Guid testId, Guid judgerId, int? chosenSample)
@@ -169,7 +172,7 @@ public class TestManagerService : ITestManagerService
         }
         judger.Answer = sample.Number;
         Save();
-        return test.ToTestResponse();
+        return TestToTestResponse(test);
     }
 
     public TestResult GetTestResults(Guid testId)
@@ -216,6 +219,16 @@ public class TestManagerService : ITestManagerService
         if (!_useDatabase || _dbPath == string.Empty) return;
         using StreamWriter sw = new(_dbPath, false);
         sw.Write(JsonSerializer.Serialize(_tests));
+    }
+
+    #endregion
+
+    #region Helpers
+
+    private TestResponse TestToTestResponse(Test test)
+    {
+        ITestService service = _serviceFactory.GetTestService(test.TestType);
+        return service.GetTestResponse(test);
     }
 
     #endregion

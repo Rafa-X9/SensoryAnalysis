@@ -35,4 +35,12 @@ public interface ITestService
     /// <returns>A <see cref="TestResult"/> object containing the test's results</returns>
     /// <exception cref="ArgumentException">Thrown if the given test object is not of the service's test type</exception>
     TestResult GetTestResult(Test test);
+
+    /// <summary>
+    /// Turns a test to test response. This method exists because some tests don't
+    /// show all the judger's information to the judger.
+    /// </summary>
+    /// <param name="test">The test to get the response from</param>
+    /// <returns>The test response</returns>
+    TestResponse GetTestResponse(Test test);
 }

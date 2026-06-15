@@ -101,4 +101,9 @@ public class TriangularTestService : ITestService
             correctAnswers,
             minimumAnswers);
     }
+
+    public TestResponse GetTestResponse(Test test)
+    {
+        return test.ToTestResponse();
+    }
 }
