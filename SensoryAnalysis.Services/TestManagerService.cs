@@ -117,7 +117,7 @@ public class TestManagerService : ITestManagerService
         {
             throw new ArgumentException("No matching Id");
         }
-        return TestToTestResponse(test).Judgers.ToList();
+        return test.Judgers.Select(j => j.ToJudgerResponse()).ToList();
     }
 
     #endregion

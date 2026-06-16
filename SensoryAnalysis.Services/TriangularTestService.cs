@@ -81,20 +81,7 @@ public class TriangularTestService : ITestService
 
         int minimumAnswers = (int)Math.Ceiling((n / 3) + (z * Math.Sqrt(2 * n / 9)));
 
-        int correctAnswers = 0;
-        foreach (Judger judger in test.Judgers)
-        {
-            if (judger.Answer is null) continue;
-            Sample? sample = judger.Samples.FirstOrDefault(s => s.Number == judger.Answer);
-            if (sample is null)
-            {
-                throw new ArgumentException("A judger did not choose a correct number");
-            }
-            if (judger.Samples.Count(s => s.SampleType == sample.SampleType) == 1)
-            {
-                correctAnswers++;
-            }
-        }
+        int correctAnswers = TestResultHelpers.CorrectAnswerCount(test.Judgers);
 
         return new(test.Judgers.Count,
             Convert.ToInt32(n),

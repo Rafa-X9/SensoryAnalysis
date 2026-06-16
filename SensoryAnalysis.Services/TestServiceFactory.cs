@@ -9,12 +9,11 @@ public class TestServiceFactory : ITestServiceFactory
 {
     public ITestService GetTestService(TestTypes testType)
     {
-        switch(testType)
+        return testType switch
         {
-            case TestTypes.Triangular:
-                return new TriangularTestService();
-            default:
-                throw new NotImplementedException($"This method cannot yet provide a new {testType}'s service object");
-        }
+            TestTypes.Triangular => new TriangularTestService(),
+            TestTypes.DuoTrio => new DuoTrioTestService(),
+            _ => throw new NotImplementedException($"This method cannot yet provide a new {testType}'s service object"),
+        };
     }
 }
