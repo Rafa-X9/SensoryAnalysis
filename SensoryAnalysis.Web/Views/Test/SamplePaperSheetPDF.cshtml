@@ -45,22 +45,10 @@
     @for (int i = 0; i < Model.Judgers.Count; i++)
     {
         JudgerResponse judger = Model.Judgers[i];
-        string samples = "";
-
-        foreach (Sample sample in judger.Samples)
-        {
-            if (sample.SampleType == SampleTypes.Sample1)
-            {
-                samples += "1";
-            }
-            else
-            {
-                samples += "2";
-            }
-        }
+        string samplesInfo = ViewBag.SamplesInfo[i];
 
         <div class="record">
-            <h2>Ficha @(i + 1) - @(samples)</h2>
+            <h2>Ficha @(i + 1) - @(samplesInfo)</h2>
 
             <ul>
                 @foreach (Sample sample in judger.Samples)

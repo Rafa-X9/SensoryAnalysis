@@ -2,6 +2,7 @@
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services.Helpers;
+using System.Text;
 
 namespace SensoryAnalysis.Services;
 
@@ -81,7 +82,7 @@ public class TriangularTestService : ITestService
 
         int minimumAnswers = (int)Math.Ceiling((n / 3) + (z * Math.Sqrt(2 * n / 9)));
 
-        int correctAnswers = TestResultHelpers.CorrectAnswerCount(test.Judgers);
+        int correctAnswers = TestHelpers.CorrectAnswerCount(test.Judgers);
 
         return new(test.Judgers.Count,
             Convert.ToInt32(n),
@@ -92,5 +93,23 @@ public class TriangularTestService : ITestService
     public TestResponse GetTestResponse(Test test)
     {
         return test.ToTestResponse();
+    }
+
+    public string Instructions()
+    {
+        return "Você está recebendo 3 amostras codificadas. " +
+            "Duas amostras são iguais e uma diferente. Por favor, avalie " +
+            "as amostras da esquerda para a direita e marque a amostra " +
+            "diferente.";
+    }
+
+    public string SamplesInfo(Judger judger, Test test)
+    {
+        string numbers = "";
+        foreach (Sample sample in judger.Samples)
+        {
+            numbers += TestHelpers.SampleTypeNumber(sample.SampleType);
+        }
+        return numbers;
     }
 }

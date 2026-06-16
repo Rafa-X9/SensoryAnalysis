@@ -10,10 +10,12 @@ namespace SensoryAnalysis.Web.Controllers;
 public class TestController : Controller
 {
     private readonly ITestManagerService _testManager;
+    private readonly ITestServiceFactory _serviceFactory;
 
-    public TestController(ITestManagerService testManager)
+    public TestController(ITestManagerService testManager, ITestServiceFactory serviceFactory)
     {
         _testManager = testManager;
+        _serviceFactory = serviceFactory;
     }
 
     [Route("")]
@@ -28,7 +30,8 @@ public class TestController : Controller
     {
         List<(string name, TestTypes type)> testTypes = new()
         {
-            ("Triangular", TestTypes.Triangular)
+            ("Triangular", TestTypes.Triangular),
+            ("Duo-Trio", TestTypes.DuoTrio)
         };
         ViewBag.TestTypes = testTypes;
 
@@ -125,10 +128,8 @@ public class TestController : Controller
         TestResponse? test = _testManager.GetTestById(id);
         if (test is null) return RedirectToAction("Index");
 
-        ViewBag.Instructions = "Você está recebendo 3 amostras codificadas. " +
-            "Duas amostras são iguais e uma diferente. Por favor, avalie " +
-            "as amostras da esquerda para a direita e marque a amostra " +
-            "diferente.";
+        ITestService service = _serviceFactory.GetTestService(test.TestType);
+        ViewBag.Instructions = service.Instructions();
 
         return new ViewAsPdf("TestRecordPDF", test, ViewData)
         {
@@ -144,6 +145,8 @@ public class TestController : Controller
     {
         TestResponse? test = _testManager.GetTestById(id);
         if (test is null) return RedirectToAction("Index");
+        ViewBag.SamplesInfo = _testManager.GetSamplesInfo(id);
+
         return new ViewAsPdf("SamplePaperSheetPDF", test, ViewData)
         {
             FileName = _nameToFileName(test.Name) + " - Numeros.pdf",

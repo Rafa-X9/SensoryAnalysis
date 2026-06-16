@@ -2,7 +2,7 @@
 using static System.Net.Mime.MediaTypeNames;
 
 namespace SensoryAnalysis.Services.Helpers;
-internal static class TestResultHelpers
+internal static class TestHelpers
 {
     internal static int CorrectAnswerCount(List<Judger> judgers)
     {
@@ -34,5 +34,10 @@ internal static class TestResultHelpers
             Significances._01 => 0.001,
             _ => throw new ArgumentException("Invalid significance level"),
         };
+    }
+
+    internal static int SampleTypeNumber(SampleTypes type)
+    {
+        return type == SampleTypes.Sample1 ? 1 : 2;
     }
 }

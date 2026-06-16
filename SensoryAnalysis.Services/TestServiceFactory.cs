@@ -7,6 +7,8 @@ namespace SensoryAnalysis.Services;
 /// </summary>
 public class TestServiceFactory : ITestServiceFactory
 {
+    public TestServiceFactory() { }
+
     public ITestService GetTestService(TestTypes testType)
     {
         return testType switch

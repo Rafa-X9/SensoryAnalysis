@@ -68,8 +68,8 @@ public class DuoTrioTestService : ITestService
             return new(test.Judgers.Count, 0, 0, 1);
         }
         
-        int correctAnswers = TestResultHelpers.CorrectAnswerCount(test.Judgers);
-        double relevance = TestResultHelpers.SignificanceToDouble(test.Significance);
+        int correctAnswers = TestHelpers.CorrectAnswerCount(test.Judgers);
+        double relevance = TestHelpers.SignificanceToDouble(test.Significance);
 
 
         return new(test.Judgers.Count,
@@ -90,6 +90,28 @@ public class DuoTrioTestService : ITestService
         TestResponse response = test.ToTestResponse();
         response.Judgers = judgers;
         return response;
+    }
+
+    public string Instructions()
+    {
+        return "Você receberá uma amostra de referência e duas amostras " +
+            "codificadas. Uma é igual à referência e a outra é diferente. " +
+            "Analise as amostras da esquerda para a direita e assinale a " +
+            "que for diferente da referência.";
+    }
+    public string SamplesInfo(Judger judger, Test test)
+    {
+        if (test.TestType != TestTypes.DuoTrio) throw new ArgumentException(null, nameof(test));
+        Judger? j = test.Judgers.FirstOrDefault(temp => temp.Id == judger.Id);
+        if (j is null) throw new ArgumentException(null, nameof(judger));
+
+        string numbers = "";
+        for (int i = 0; i < 2; i++)
+        {
+            numbers += TestHelpers.SampleTypeNumber(j.Samples[i].SampleType);
+        }
+        numbers += $" - R{TestHelpers.SampleTypeNumber(j.Samples[2].SampleType)}";
+        return numbers;
     }
 
     #region Helpers

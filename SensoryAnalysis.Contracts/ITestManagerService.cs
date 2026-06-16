@@ -55,6 +55,13 @@ public interface ITestManagerService
     /// <exception cref="ArgumentException">Thrown if the given Id has no matches</exception>
     List<JudgerResponse> GetJudgersFromTest(Guid testId);
 
+    /// <summary>
+    /// Returns the samples information of the specific test
+    /// </summary>
+    /// <param name="testId">The test to get the samples' information</param>
+    /// <returns>List of string containing the info of each sample</returns>
+    List<string> GetSamplesInfo(Guid testId);
+
     #endregion
 
     #region Removing

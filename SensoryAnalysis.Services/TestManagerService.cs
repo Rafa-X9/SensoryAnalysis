@@ -120,6 +120,22 @@ public class TestManagerService : ITestManagerService
         return test.Judgers.Select(j => j.ToJudgerResponse()).ToList();
     }
 
+    public List<string> GetSamplesInfo(Guid testId)
+    {
+        Test? test = _tests.FirstOrDefault(t => t.Id == testId);
+        if (test is null)
+        {
+            throw new ArgumentException("No matching Id");
+        }
+        ITestService service = _serviceFactory.GetTestService(test.TestType);
+        List<string> info = [];
+        foreach (Judger judger in test.Judgers)
+        {
+            info.Add(service.SamplesInfo(judger, test));
+        }
+        return info;
+    }
+
     #endregion
 
     #region Making the test

@@ -43,4 +43,21 @@ public interface ITestService
     /// <param name="test">The test to get the response from</param>
     /// <returns>The test response</returns>
     TestResponse GetTestResponse(Test test);
+
+    /// <summary>
+    /// Gives the instructions to the judger about the specific test
+    /// </summary>
+    /// <returns>String containing the instructions</returns>
+    string Instructions();
+
+    /// <summary>
+    /// Gives information about the samples of the judger to be shown in
+    /// the PDF which will contain the numbers to print and put next to
+    /// the samples in the test
+    /// </summary>
+    /// <param name="judger">The test to get info about</param>
+    /// <param name="test">The test the judger is in</param>
+    /// <returns>Information about the arrangement of samples</returns>
+    /// <exception cref="ArgumentException">Thrown if an invalid test/judger is given</exception>
+    string SamplesInfo(Judger judger, Test test);
 }
