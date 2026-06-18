@@ -14,7 +14,7 @@ Há vários tipos de análise sensorial, cada qual com um objetivo diferente. Te
 
 
 
-Verifique a \[documentação técnica](https://github.com/Rafa-X9/SensoryAnalysis/blob/main/TechnicalDocumentation.md) (apenas em inglês no momento).
+Verifique a [documentação técnica](TechnicalDocumentation.md) (apenas em inglês no momento).
 
 
 
