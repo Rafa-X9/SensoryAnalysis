@@ -18,7 +18,7 @@ There are several types of sensory analysis, each serving a different purpose. D
 
 
 
-Check out the \[technical documentation](https://github.com/Rafa-X9/SensoryAnalysis/blob/main/TechnicalDocumentation.md).
+Check out the [technical documentation](TechnicalDocumentation.md).
 
 
 
