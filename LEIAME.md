@@ -14,21 +14,7 @@ Há vários tipos de análise sensorial, cada qual com um objetivo diferente. Te
 
 
 
-Por enquanto, estes são os testes que essa aplicação consegue fazer:
-
-- **Testes triangulares:** o teste discriminativo mais comum. Seu objetivo é verificar se existe diferença perceptível entre a amostra A e a amostra B. Nela, o julgador recebe 3 amostras, duas são iguais e uma é diferente. O julgador marca a amostra que ele acreditar ser a diferente.
-
-
-
-# Afazeres
-
-
-
-- Terminar de escrever esse LEIAME
-
-- Adicionar testes duo-trio
-
-- Descobrir como permitir que apenas um clique de botão salve as respostas de todos os julgadores
+Verifique a \[documentação técnica](TechnicalDocumentation.md) (apenas em inglês no momento).
 
 
 
