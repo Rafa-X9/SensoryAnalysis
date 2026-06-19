@@ -1,14 +1,22 @@
-﻿namespace SensoryAnalysis.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SensoryAnalysis.Entities;
 public class Test
 {
+    [Key]
     public Guid Id { get; set; }
+
+    [StringLength(100)]
     public string Name { get; set; }
     public TestTypes TestType { get; set; }
     public Significances Significance { get; set; }
     public List<Judger> Judgers { get; set; }
     public DateTime CreatedAt { get; set; }
 
+    [StringLength(50)]
     public string? NameOfSample1 { get; set; }
+
+    [StringLength(50)]
     public string? NameOfSample2 { get; set; }
 
     public Test()

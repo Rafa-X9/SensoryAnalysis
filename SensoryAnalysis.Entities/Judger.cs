@@ -1,10 +1,16 @@
-﻿namespace SensoryAnalysis.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SensoryAnalysis.Entities;
 public class Judger
 {
+    [Key]
     public Guid Id { get; set; }
     public Guid TestId { get; set; }
+    public Test? JudgersTest { get; set; }
     public List<Sample> Samples { get; set; }
     public int? Answer { get; set; }
+
+    public Judger() { }
 
     public Judger(Guid testId, List<Sample> samples)
     {

@@ -1,12 +1,23 @@
+using Microsoft.EntityFrameworkCore;
 using Rotativa.AspNetCore;
 using SensoryAnalysis.Contracts;
+using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ITestManagerService, TestManagerService>();
-builder.Services.AddSingleton<ITestServiceFactory, TestServiceFactory>();
-builder.Services.AddScoped<ITestRepository, JsonRepository>();
+builder.Services.AddScoped<ITestServiceFactory, TestServiceFactory>();
+builder.Services.AddScoped<ITestRepository, SqlServerRepository>();
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    string? connection = builder.Configuration.GetConnectionString("Default");
+    if (connection is null)
+    {
+        throw new Exception("Unable to get connection string");
+    }
+    options.UseSqlServer(connection);
+});
 var app = builder.Build();
 app.MapControllers();
 app.UseStaticFiles();
