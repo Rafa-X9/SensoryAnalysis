@@ -16,7 +16,7 @@ public class TriangularTestTests
 
     public TriangularTestTests()
     {
-        _manager = new TestManagerService(new TestServiceFactory(), null, false);
+        _manager = new TestManagerService(new InMemoryRepository(), new TestServiceFactory());
         _testService = new TriangularTestService();
     }
 
@@ -134,15 +134,15 @@ public class TriangularTestTests
      */
 
     [Fact]
-    public void GetTestResults_1()
+    public async Task GetTestResults_1()
     {
         TestAddRequest addRequest = new("Test 1", TestTypes.Triangular, Significances._5);
-        TestResponse response = _manager.AddTestAsync(addRequest);
+        TestResponse response = await _manager.AddTestAsync(addRequest);
         for (int i = 0; i < 21; i++)
         {
-            _manager.AddJudgerToTestAsync(response.Id);
+            await _manager.AddJudgerToTestAsync(response.Id);
         }
-        List<JudgerResponse> judgers = _manager.GetJudgersFromTestAsync(response.Id);
+        List<JudgerResponse> judgers = await _manager.GetJudgersFromTestAsync(response.Id);
 
         //11 judgers answering correctly
         for (int i = 0; i < 11; i++)
@@ -156,7 +156,7 @@ public class TriangularTestTests
             {
                 differentSample = judgers[i].Samples.First(s => s.SampleType == SampleTypes.Sample2).Number;
             }
-            _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
+            await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
         }
 
         //9 remaining answering incorrectly, the last 1 didn't answer
@@ -171,10 +171,10 @@ public class TriangularTestTests
             {
                 differentSample = judgers[i].Samples.First(s => s.SampleType == SampleTypes.Sample1).Number;
             }
-            _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
+            await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
         }
 
-        TestResult result = _manager.GetTestResultsAsync(response.Id);
+        TestResult result = await _manager.GetTestResultsAsync(response.Id);
         Assert.Equal(21, result.TotalJudgers);
         Assert.Equal(20, result.TotalAnswers);
         Assert.Equal(11, result.CorrectAnswers);

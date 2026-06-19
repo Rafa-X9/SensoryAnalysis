@@ -2,12 +2,13 @@
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services;
+using System.Threading.Tasks;
 
 namespace SensoryAnalysis.Tests;
 public class DuoTrioTestTests
 {
     private readonly ITestService _testService = new DuoTrioTestService();
-    private readonly ITestManagerService _manager = new TestManagerService(new TestServiceFactory(), null, false);
+    private readonly ITestManagerService _manager = new TestManagerService(new InMemoryRepository(), new TestServiceFactory());
 
     #region IsValid
 
@@ -28,31 +29,31 @@ public class DuoTrioTestTests
     #region GetTestResults
 
     [Fact]
-    public void GetTestResults_1()
+    public async Task GetTestResults_1()
     {
         TestAddRequest addRequest = new("Test 1", TestTypes.DuoTrio, Significances._5);
-        TestResponse response = _manager.AddTestAsync(addRequest);
+        TestResponse response = await _manager.AddTestAsync(addRequest);
         for (int i = 0; i < 21; i++)
         {
-            _manager.AddJudgerToTestAsync(response.Id);
+            await _manager.AddJudgerToTestAsync(response.Id);
         }
-        List<JudgerResponse> judgers = _manager.GetJudgersFromTestAsync(response.Id);
+        List<JudgerResponse> judgers = await _manager.GetJudgersFromTestAsync(response.Id);
 
         //14 judgers answering correctly
         for (int i = 0; i < 14; i++)
         {
             int differentSample = judgers[i].Samples.First(s => s.SampleType != judgers[i].Samples[2].SampleType).Number;
-            _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
+            await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
         }
 
         //6 remaining answering incorrectly, the last 1 didn't answer
         for (int i = 14; i < 20; i++)
         {
             int equalSample = judgers[i].Samples.First(s => s.SampleType == judgers[i].Samples[2].SampleType).Number;
-            _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, equalSample);
+            await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, equalSample);
         }
 
-        TestResult result = _manager.GetTestResultsAsync(response.Id);
+        TestResult result = await _manager.GetTestResultsAsync(response.Id);
         Assert.Equal(21, result.TotalJudgers);
         Assert.Equal(20, result.TotalAnswers);
         Assert.Equal(14, result.CorrectAnswers);
@@ -62,21 +63,21 @@ public class DuoTrioTestTests
     }
 
     [Fact]
-    public void GetTestResults_2()
+    public async Task GetTestResults_2()
     {
         TestAddRequest addRequest = new("Test 2", TestTypes.DuoTrio, Significances._5);
-        TestResponse response = _manager.AddTestAsync(addRequest);
+        TestResponse response = await _manager.AddTestAsync(addRequest);
         for (int i = 0; i < 21; i++)
         {
-            _manager.AddJudgerToTestAsync(response.Id);
+            await _manager.AddJudgerToTestAsync(response.Id);
         }
-        List<JudgerResponse> judgers = _manager.GetJudgersFromTestAsync(response.Id);
+        List<JudgerResponse> judgers = await _manager.GetJudgersFromTestAsync(response.Id);
 
         //15 judgers answering correctly
         for (int i = 0; i < 15; i++)
         {
             int differentSample = judgers[i].Samples.First(s => s.SampleType != judgers[i].Samples[2].SampleType).Number;
-            _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
+            await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
         }
 
         //5 remaining answering incorrectly, the last 1 didn't answer
@@ -84,10 +85,10 @@ public class DuoTrioTestTests
         {
 
             int differentSample = judgers[i].Samples.First(s => s.SampleType == judgers[i].Samples[2].SampleType).Number;
-            _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
+            await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
         }
 
-        TestResult result = _manager.GetTestResultsAsync(response.Id);
+        TestResult result = await _manager.GetTestResultsAsync(response.Id);
         Assert.Equal(21, result.TotalJudgers);
         Assert.Equal(20, result.TotalAnswers);
         Assert.Equal(15, result.CorrectAnswers);
