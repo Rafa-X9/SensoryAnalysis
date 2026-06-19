@@ -4,8 +4,9 @@ using SensoryAnalysis.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<ITestManagerService, TestManagerService>();
+builder.Services.AddScoped<ITestManagerService, TestManagerService>();
 builder.Services.AddSingleton<ITestServiceFactory, TestServiceFactory>();
+builder.Services.AddScoped<ITestRepository, JsonRepository>();
 var app = builder.Build();
 app.MapControllers();
 app.UseStaticFiles();

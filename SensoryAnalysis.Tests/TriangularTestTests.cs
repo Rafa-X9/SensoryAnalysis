@@ -137,12 +137,12 @@ public class TriangularTestTests
     public void GetTestResults_1()
     {
         TestAddRequest addRequest = new("Test 1", TestTypes.Triangular, Significances._5);
-        TestResponse response = _manager.AddTest(addRequest);
+        TestResponse response = _manager.AddTestAsync(addRequest);
         for (int i = 0; i < 21; i++)
         {
-            _manager.AddJudgerToTest(response.Id);
+            _manager.AddJudgerToTestAsync(response.Id);
         }
-        List<JudgerResponse> judgers = _manager.GetJudgersFromTest(response.Id);
+        List<JudgerResponse> judgers = _manager.GetJudgersFromTestAsync(response.Id);
 
         //11 judgers answering correctly
         for (int i = 0; i < 11; i++)
@@ -156,7 +156,7 @@ public class TriangularTestTests
             {
                 differentSample = judgers[i].Samples.First(s => s.SampleType == SampleTypes.Sample2).Number;
             }
-            _manager.AddAnswerToTest(response.Id, judgers[i].Id, differentSample);
+            _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
         }
 
         //9 remaining answering incorrectly, the last 1 didn't answer
@@ -171,10 +171,10 @@ public class TriangularTestTests
             {
                 differentSample = judgers[i].Samples.First(s => s.SampleType == SampleTypes.Sample1).Number;
             }
-            _manager.AddAnswerToTest(response.Id, judgers[i].Id, differentSample);
+            _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
         }
 
-        TestResult result = _manager.GetTestResults(response.Id);
+        TestResult result = _manager.GetTestResultsAsync(response.Id);
         Assert.Equal(21, result.TotalJudgers);
         Assert.Equal(20, result.TotalAnswers);
         Assert.Equal(11, result.CorrectAnswers);

@@ -3,6 +3,7 @@ using Rotativa.AspNetCore;
 using SensoryAnalysis.Contracts;
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
+using System.Threading.Tasks;
 
 namespace SensoryAnalysis.Web.Controllers;
 
@@ -19,9 +20,9 @@ public class TestController : Controller
     }
 
     [Route("")]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View(_testManager.GetAllTests());
+        return View(await _testManager.GetAllTestsAsync());
     }
 
     [Route("create")]
@@ -50,82 +51,82 @@ public class TestController : Controller
 
     [Route("create")]
     [HttpPost]
-    public IActionResult Create(TestAddRequest request)
+    public async Task<IActionResult> Create(TestAddRequest request)
     {
         if (ModelState.IsValid)
         {
-            _testManager.AddTest(request);
+            await _testManager.AddTestAsync(request);
         }
         return RedirectToAction("Index");
     }
 
     [Route("delete")]
     [HttpGet]
-    public IActionResult Delete(Guid id)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        TestResponse? test = _testManager.GetTestById(id);
+        TestResponse? test = await _testManager.GetTestByIdAsync(id);
         if (test is null) return RedirectToAction("Index");
         return View(test);
     }
 
     [Route("delete")]
     [HttpPost]
-    public IActionResult Delete(Guid id, bool soggyCatIsPeak = true)
+    public async Task<IActionResult> Delete(Guid id, bool soggyCatIsPeak = true)
     {
-        _testManager.DeleteTest(id);
+        await _testManager.DeleteTestAsync(id);
         return RedirectToAction("Index");
     }
 
     [Route("{id:guid}")]
-    public IActionResult ViewTest(Guid id)
+    public async Task<IActionResult> ViewTest(Guid id)
     {
-        TestResponse? test = _testManager.GetTestById(id);
+        TestResponse? test = await _testManager.GetTestByIdAsync(id);
         if (test is null) return RedirectToAction("Index");
-        ViewBag.Result = _testManager.GetTestResults(id);
+        ViewBag.Result = await _testManager.GetTestResultsAsync(id);
         return View(test);
     }
 
     [Route("addjudger")]
-    public IActionResult AddJudger(Guid id, int amount)
+    public async Task<IActionResult> AddJudger(Guid id, int amount)
     {
-        if (amount <= 0 || _testManager.GetTestById(id) is null)
+        if (amount <= 0 || await _testManager.GetTestByIdAsync(id) is null)
         {
             return RedirectToAction("Index");
         }
         for (int i = 0; i < amount; i++)
         {
-            _testManager.AddJudgerToTest(id);
+            await _testManager.AddJudgerToTestAsync(id);
         }
         return RedirectToAction("ViewTest", new { id });
     }
 
     [Route("submitanswer")]
     [HttpPost]
-    public IActionResult SubmitAnswer(Guid testId, Guid judgerId, int answer)
+    public async Task<IActionResult> SubmitAnswer(Guid testId, Guid judgerId, int answer)
     {
-        TestResponse? test = _testManager.GetTestById(testId);
+        TestResponse? test = await _testManager.GetTestByIdAsync(testId);
         if (test is null) return RedirectToAction("Index");
         if (test.Judgers.Any(j => j.Id == judgerId &&
             (answer == -1 || j.Samples.Any(s => s.Number == answer))))
         {
-            _testManager.AddAnswerToTest(testId, judgerId, (answer == -1) ? null : answer);
+            await _testManager.AddAnswerToTestAsync(testId, judgerId, (answer == -1) ? null : answer);
         }
-        ViewBag.Result = _testManager.GetTestResults(test.Id);
+        ViewBag.Result = await _testManager.GetTestResultsAsync(test.Id);
         return PartialView("ResultsTablePartial", test);
     }
 
     [Route("removejudger")]
     [HttpGet]
-    public IActionResult RemoveJudgerFromTest(Guid testId, Guid judgerId)
+    public async Task<IActionResult> RemoveJudgerFromTest(Guid testId, Guid judgerId)
     {
-        _testManager.RemoveJudgerFromTest(testId, judgerId);
+        await _testManager.RemoveJudgerFromTestAsync(testId, judgerId);
         return RedirectToAction("ViewTest", new { id = testId });
     }
 
     [Route("testrecordpdf")]
-    public IActionResult TestRecordPDF(Guid id)
+    public async Task<IActionResult> TestRecordPDF(Guid id)
     {
-        TestResponse? test = _testManager.GetTestById(id);
+        TestResponse? test = await _testManager.GetTestByIdAsync(id);
         if (test is null) return RedirectToAction("Index");
 
         ITestService service = _serviceFactory.GetTestService(test.TestType);
@@ -141,11 +142,11 @@ public class TestController : Controller
     }
 
     [Route("SamplePaperSheetPDF")]
-    public IActionResult SamplePaperSheetPDF(Guid id)
+    public async Task<IActionResult> SamplePaperSheetPDF(Guid id)
     {
-        TestResponse? test = _testManager.GetTestById(id);
+        TestResponse? test = await _testManager.GetTestByIdAsync(id);
         if (test is null) return RedirectToAction("Index");
-        ViewBag.SamplesInfo = _testManager.GetSamplesInfo(id);
+        ViewBag.SamplesInfo = await _testManager.GetSamplesInfoAsync(id);
 
         return new ViewAsPdf("SamplePaperSheetPDF", test, ViewData)
         {
