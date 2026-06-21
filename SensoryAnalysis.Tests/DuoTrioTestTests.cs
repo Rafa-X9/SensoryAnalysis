@@ -1,4 +1,5 @@
-﻿using SensoryAnalysis.Contracts;
+﻿using Microsoft.Extensions.Logging;
+using SensoryAnalysis.Contracts;
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 namespace SensoryAnalysis.Tests;
 public class DuoTrioTestTests
 {
-    private readonly ITestService _testService = new DuoTrioTestService();
-    private readonly ITestManagerService _manager = new TestManagerService(new InMemoryRepository(), new TestServiceFactory());
+    private readonly ITestService _testService = new DuoTrioTestService(new Logger<DuoTrioTestService>(new LoggerFactory()));
+    private readonly ITestManagerService _manager = new TestManagerService(new InMemoryRepository(), new UnitTestServiceFactory(), new Logger<TestManagerService>(new LoggerFactory()));
 
     #region IsValid
 

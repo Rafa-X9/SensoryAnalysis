@@ -1,4 +1,5 @@
-﻿using SensoryAnalysis.Contracts;
+﻿using Microsoft.Extensions.Logging;
+using SensoryAnalysis.Contracts;
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services.Helpers;
@@ -12,10 +13,12 @@ namespace SensoryAnalysis.Services;
 public class TriangularTestService : ITestService
 {
     private readonly Random _random;
+    private readonly ILogger<TriangularTestService> _logger;
 
-    public TriangularTestService()
+    public TriangularTestService(ILogger<TriangularTestService> logger)
     {
         _random = new();
+        _logger = logger;
     }
 
     public bool IsValid(TestAddRequest request)
@@ -25,6 +28,8 @@ public class TriangularTestService : ITestService
 
     public List<Sample> GenerateSamples(Guid? judgerId = null, SampleTypes? differentSample = null)
     {
+        _logger.LogSampleGeneration(judgerId, differentSample);
+
         List<int> numbers = [];
         while (numbers.Count < 3)
         {
@@ -56,11 +61,16 @@ public class TriangularTestService : ITestService
             SampleTypes type = (i == differentPosition) ? (SampleTypes)differentSample : doubleSample;
             samples.Add(new(id, numbers[i], type));
         }
+
+        _logger.LogSampleResults(samples);
+
         return samples;
     }
 
     public TestResult GetTestResult(Test test)
     {
+        _logger.LogTestResultGeneration(test);
+
         double n = test.Judgers.Count(judger => judger.Answer != null);
         if (n == 0)
         {
@@ -84,10 +94,14 @@ public class TriangularTestService : ITestService
 
         int correctAnswers = TestHelpers.CorrectAnswerCount(test.Judgers);
 
-        return new(test.Judgers.Count,
+        TestResult result = new(test.Judgers.Count,
             Convert.ToInt32(n),
             correctAnswers,
             minimumAnswers);
+
+        _logger.LogTestResult(result);
+
+        return result;
     }
 
     public TestResponse GetTestResponse(Test test)

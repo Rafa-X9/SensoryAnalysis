@@ -1,7 +1,7 @@
 ﻿using SensoryAnalysis.Entities;
 
 namespace SensoryAnalysis.Services.Helpers;
-public static class ExtensionHelpers
+public static class LogicExtensionHelpers
 {
     public static bool IsIn<T>(this T obj, params T[] array)
     {

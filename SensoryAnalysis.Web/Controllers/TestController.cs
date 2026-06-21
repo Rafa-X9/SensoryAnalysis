@@ -12,11 +12,15 @@ public class TestController : Controller
 {
     private readonly ITestManagerService _testManager;
     private readonly ITestServiceFactory _serviceFactory;
+    private readonly ILogger<TestController> _logger;
 
-    public TestController(ITestManagerService testManager, ITestServiceFactory serviceFactory)
+    public TestController(ITestManagerService testManager,
+        ITestServiceFactory serviceFactory,
+        ILogger<TestController> logger)
     {
         _testManager = testManager;
         _serviceFactory = serviceFactory;
+        _logger = logger;
     }
 
     [Route("")]
@@ -53,6 +57,15 @@ public class TestController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(TestAddRequest request)
     {
+        _logger.LogInformation("A test add request has been made.");
+        
+        _logger.LogDebug($"TestAddRequest object:\n" +
+            $"        Name: {request.Name}\n" +
+            $"        Type: {request.TestType}\n" +
+            $"        Significance: {request.Significance}\n" +
+            $"        Sample 1: {request.NameOfSample1}\n" +
+            $"        Sample 2: {request.NameOfSample2}");
+
         if (ModelState.IsValid)
         {
             await _testManager.AddTestAsync(request);
@@ -73,6 +86,8 @@ public class TestController : Controller
     [HttpPost]
     public async Task<IActionResult> Delete(Guid id, bool soggyCatIsPeak = true)
     {
+        _logger.LogInformation($"A test deletion for id {id} request was made");
+
         await _testManager.DeleteTestAsync(id);
         return RedirectToAction("Index");
     }
@@ -89,6 +104,8 @@ public class TestController : Controller
     [Route("addjudger")]
     public async Task<IActionResult> AddJudger(Guid id, int amount)
     {
+        _logger.LogInformation($"A request to add {amount} judgers to test {id} was made");
+
         if (amount <= 0 || await _testManager.GetTestByIdAsync(id) is null)
         {
             return RedirectToAction("Index");
@@ -104,6 +121,9 @@ public class TestController : Controller
     [HttpPost]
     public async Task<IActionResult> SubmitAnswer(Guid testId, Guid judgerId, int answer)
     {
+        _logger.LogInformation($"A request to add the {answer} answer to the " +
+            $"{judgerId} judger in the {testId} test was made");
+
         TestResponse? test = await _testManager.GetTestByIdAsync(testId);
         if (test is null) return RedirectToAction("Index");
         if (test.Judgers.Any(j => j.Id == judgerId &&
@@ -119,6 +139,8 @@ public class TestController : Controller
     [HttpGet]
     public async Task<IActionResult> RemoveJudgerFromTest(Guid testId, Guid judgerId)
     {
+        _logger.LogInformation($"A request to remove the {judgerId} judger from the {testId} test was made");
+
         await _testManager.RemoveJudgerFromTestAsync(testId, judgerId);
         return RedirectToAction("ViewTest", new { id = testId });
     }
@@ -126,6 +148,8 @@ public class TestController : Controller
     [Route("testrecordpdf")]
     public async Task<IActionResult> TestRecordPDF(Guid id)
     {
+        _logger.LogInformation($"A request to get the {id} test records' PDF was made");
+
         TestResponse? test = await _testManager.GetTestByIdAsync(id);
         if (test is null) return RedirectToAction("Index");
 
@@ -144,6 +168,8 @@ public class TestController : Controller
     [Route("SamplePaperSheetPDF")]
     public async Task<IActionResult> SamplePaperSheetPDF(Guid id)
     {
+        _logger.LogInformation($"A request to get the {id} test's sample paper sheet PDF was made");
+
         TestResponse? test = await _testManager.GetTestByIdAsync(id);
         if (test is null) return RedirectToAction("Index");
         ViewBag.SamplesInfo = await _testManager.GetSamplesInfoAsync(id);

@@ -1,4 +1,5 @@
-﻿using SensoryAnalysis.Contracts;
+﻿using Microsoft.Extensions.Logging;
+using SensoryAnalysis.Contracts;
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services.Helpers;
@@ -12,10 +13,12 @@ namespace SensoryAnalysis.Services;
 public class DuoTrioTestService : ITestService
 {
     private readonly Random _random;
+    private readonly ILogger<DuoTrioTestService> _logger;
 
-    public DuoTrioTestService()
+    public DuoTrioTestService(ILogger<DuoTrioTestService> logger)
     {
         _random = new();
+        _logger = logger;
     }
 
     public bool IsValid(TestAddRequest request)
@@ -25,6 +28,8 @@ public class DuoTrioTestService : ITestService
 
     public List<Sample> GenerateSamples(Guid? judgerId = null, SampleTypes? differentSample = null)
     {
+        _logger.LogSampleGeneration(judgerId, differentSample);
+
         judgerId ??= Guid.NewGuid();
         if (differentSample is null)
         {
@@ -57,11 +62,16 @@ public class DuoTrioTestService : ITestService
             samples.Add(new(judgerId.Value, numbers[i], type));
         }
         samples.Add(new(judgerId.Value, 0, differentSample.Value.OtherSampleType()));
+
+        _logger.LogSampleResults(samples);
+
         return samples;
     }
 
     public TestResult GetTestResult(Test test)
     {
+        _logger.LogTestResultGeneration(test);
+
         int answerCount = test.Judgers.Count(j => j.Answer is not null);
         if (answerCount == 0)
         {
@@ -71,11 +81,14 @@ public class DuoTrioTestService : ITestService
         int correctAnswers = TestHelpers.CorrectAnswerCount(test.Judgers);
         double relevance = TestHelpers.SignificanceToDouble(test.Significance);
 
-
-        return new(test.Judgers.Count,
+        TestResult result = new(test.Judgers.Count,
             answerCount,
             correctAnswers,
             MinimumForRelevance(answerCount, relevance));
+
+        _logger.LogTestResult(result);
+
+        return result;
     }
 
     public TestResponse GetTestResponse(Test test)

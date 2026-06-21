@@ -1,4 +1,6 @@
-﻿using SensoryAnalysis.Contracts;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using SensoryAnalysis.Contracts;
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services;
@@ -16,8 +18,8 @@ public class TriangularTestTests
 
     public TriangularTestTests()
     {
-        _manager = new TestManagerService(new InMemoryRepository(), new TestServiceFactory());
-        _testService = new TriangularTestService();
+        _manager = new TestManagerService(new InMemoryRepository(), new UnitTestServiceFactory(), new Logger<TestManagerService>(new LoggerFactory()));
+        _testService = new TriangularTestService(new Logger<TriangularTestService>(new LoggerFactory()));
     }
 
     #region IsValid

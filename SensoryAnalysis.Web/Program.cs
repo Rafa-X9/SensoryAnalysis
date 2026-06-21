@@ -3,8 +3,20 @@ using Rotativa.AspNetCore;
 using SensoryAnalysis.Contracts;
 using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog(
+    (HostBuilderContext context,
+    IServiceProvider services,
+    LoggerConfiguration configuration) =>
+{
+    configuration
+        .ReadFrom.Configuration(context.Configuration)
+        .ReadFrom.Services(services);
+});
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ITestManagerService, TestManagerService>();
 builder.Services.AddScoped<ITestServiceFactory, TestServiceFactory>();
