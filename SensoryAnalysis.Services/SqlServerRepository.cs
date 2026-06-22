@@ -21,8 +21,8 @@ public class SqlServerRepository : ITestRepository
     public async Task<Test?> GetTestByIdAsync(Guid id)
     {
         return await _db.Tests
-            .Include(temp => temp.Judgers)
-            .ThenInclude(temp => temp.Samples)
+            .Include(temp => temp.Judgers.OrderBy(judger => judger.CreatedAt))
+            .ThenInclude(temp => temp.Samples.OrderBy(sample => sample.CreatedAt))
             .AsNoTracking()
             .FirstOrDefaultAsync(temp => temp.Id == id);
     }

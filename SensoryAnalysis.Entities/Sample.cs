@@ -9,6 +9,7 @@ public class Sample
     public Judger? SamplesJudger { get; set; }
     public int Number { get; set; }
     public SampleTypes SampleType { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 
     public Sample() { }
 
