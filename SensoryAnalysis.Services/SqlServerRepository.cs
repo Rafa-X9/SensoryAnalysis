@@ -23,7 +23,7 @@ public class SqlServerRepository : ITestRepository
             .Include(temp => temp.Judgers)
             .ThenInclude(temp => temp.Samples)
             .AsNoTracking()
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(temp => temp.Id == id);
     }
 
     public async Task<Test> AddTestAsync(Test test)
