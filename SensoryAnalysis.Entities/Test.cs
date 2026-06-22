@@ -19,10 +19,13 @@ public class Test
     [StringLength(50)]
     public string? NameOfSample2 { get; set; }
 
+    public int? JudgerCount { get; set; }
+
     public Test()
     {
         Name = string.Empty;
         Judgers = [];
+        JudgerCount = 0;
     }
 
     public Test(string name,
@@ -39,5 +42,6 @@ public class Test
         CreatedAt = DateTime.Now;
         NameOfSample1 = nameOfSample1;
         NameOfSample2 = nameOfSample2;
+        JudgerCount = Judgers.Count;
     }
 }

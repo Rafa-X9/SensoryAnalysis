@@ -13,6 +13,8 @@ public class TestResponse
     public string? NameOfSample1 { get; set; }
     public string? NameOfSample2 { get; set; }
 
+    public int? JudgerCount { get; set; }
+
     public TestResponse(Guid id,
         string name,
         TestTypes testType,
@@ -30,6 +32,7 @@ public class TestResponse
         CreatedAt = createdAt;
         NameOfSample1 = nameOfSample1;
         NameOfSample2 = nameOfSample2;
+        JudgerCount = Judgers.Count;
     }
 }
 
@@ -44,6 +47,9 @@ public static class TestExtension
             test.Judgers,
             test.CreatedAt,
             nameOfSample1: test.NameOfSample1,
-            nameOfSample2: test.NameOfSample2);
+            nameOfSample2: test.NameOfSample2)
+        {
+            JudgerCount = test.JudgerCount
+        };
     }
 }

@@ -14,7 +14,8 @@ public class SqlServerRepository : ITestRepository
 
     public async Task<List<Test>> GetAllTestsAsync()
     {
-        return await _db.Tests.AsNoTracking().ToListAsync();
+        var list = await _db.Tests.AsNoTracking().ToListAsync();
+        return list;
     }
 
     public async Task<Test?> GetTestByIdAsync(Guid id)
@@ -35,14 +36,25 @@ public class SqlServerRepository : ITestRepository
 
     public async Task<Test> AddJudgerToTestAsync(Judger judger, Guid testId)
     {
-        _db.Judgers.Add(new()
+        Test test = await _db.Tests.FirstAsync(temp => temp.Id == testId);
+        Judger toAdd = new()
         {
             Id = judger.Id,
             TestId = testId,
             Samples = judger.Samples
-        });
+        };
+        test.Judgers.Add(toAdd);
+        if (test.JudgerCount is null)
+        {
+            test.JudgerCount = 1;
+        }
+        else
+        {
+            test.JudgerCount++;
+        }
+        _db.Judgers.Add(toAdd);
         await _db.SaveChangesAsync();
-        return _db.Tests.First(temp => temp.Id == testId);
+        return test;
     }
 
     public async Task<Test> AddAnswerToTestAsync(Guid judgerId, Guid? chosenSample)
@@ -83,7 +95,10 @@ public class SqlServerRepository : ITestRepository
 
     public async Task<bool> RemoveJudgerFromTestAsync(Guid judgerId)
     {
-        _db.Judgers.RemoveRange(_db.Judgers.Where(temp => temp.Id == judgerId));
+        Judger judger = await _db.Judgers.FirstAsync(temp => temp.Id == judgerId);
+        Test test = await _db.Tests.FirstAsync(temp => temp.Id == judger.TestId);
+        test.Judgers.Remove(judger);
+        test.JudgerCount--;
         return (await _db.SaveChangesAsync()) > 0;
     }
 }
