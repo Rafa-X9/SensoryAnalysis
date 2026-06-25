@@ -176,7 +176,8 @@ public class TriangularTestTests
             await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
         }
 
-        TestResult result = await _manager.GetTestResultsAsync(response.Id);
+        TestResult? result = (await _manager.GetTestResultsAsync(response.Id))?.Result;
+        Assert.NotNull(result);
         Assert.Equal(21, result.TotalJudgers);
         Assert.Equal(20, result.TotalAnswers);
         Assert.Equal(11, result.CorrectAnswers);

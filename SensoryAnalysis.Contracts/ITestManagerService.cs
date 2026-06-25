@@ -1,4 +1,5 @@
 ﻿using SensoryAnalysis.Contracts.DTO;
+using SensoryAnalysis.Entities;
 
 namespace SensoryAnalysis.Contracts;
 /// <summary>
@@ -25,10 +26,28 @@ public interface ITestManagerService
     /// Adds a judger to the specified test. This test also generates the samples
     /// for the newly added judger
     /// </summary>
+    /// <param name="test">The test to which the judger will be added</param>
+    /// <param name="testService">The service from which the samples will be generated</param>
+    /// <returns>A <see cref="TestResponse"/> object containing the updated test info</returns>
+    Test AddJudgerToTest(Test test, ITestService testService);
+
+    /// <summary>
+    /// Adds a judger to the specified test. This test also generates the samples
+    /// for the newly added judger
+    /// </summary>
     /// <param name="testId">The id of the test to which the judger will be added</param>
     /// <returns>A <see cref="TestResponse"/> object containing the updated test info</returns>
     /// <exception cref="ArgumentException">Thrown if no matching Id is found</exception>
     Task<TestResponse> AddJudgerToTestAsync(Guid testId);
+
+    /// <summary>
+    /// Adds the specified amount of judgers to the tests, also generating them their samples.
+    /// </summary>
+    /// <param name="testId">The test to add judgers to</param>
+    /// <param name="amount">The amount of judgers to add</param>
+    /// <returns>A <see cref="TestResult"/> object with the updated test</returns>
+    /// <exception cref="ArgumentException">Thrown if there isn't a matching id</exception>
+    Task<TestResponse> AddJudgersToTestAsync(Guid testId, int amount);
 
     #endregion
 
@@ -106,10 +125,16 @@ public interface ITestManagerService
     /// <summary>
     /// Gets a test's results
     /// </summary>
+    /// <param name="test">The test to get the results of</param>
+    /// <returns>A <see cref="TestResponse"/> object containing the test's result data</returns>
+    TestResponse GetTestResults(Test test);
+
+    /// <summary>
+    /// Gets a test's results
+    /// </summary>
     /// <param name="testId">The test to get the results of</param>
-    /// <returns>A <see cref="TestResult"/> object containing the test's result data</returns>
-    /// <exception cref="ArgumentException">Thrown if there's no matching Id</exception>
-    Task<TestResult> GetTestResultsAsync(Guid testId);
+    /// <returns>A <see cref="TestResponse"/> object containing the test's result data, or null if the test doesn't exist</returns>
+    Task<TestResponse?> GetTestResultsAsync(Guid testId);
 
     #endregion
 }

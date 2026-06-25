@@ -54,7 +54,8 @@ public class DuoTrioTestTests
             await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, equalSample);
         }
 
-        TestResult result = await _manager.GetTestResultsAsync(response.Id);
+        TestResult? result = (await _manager.GetTestResultsAsync(response.Id))?.Result;
+        Assert.NotNull(result);
         Assert.Equal(21, result.TotalJudgers);
         Assert.Equal(20, result.TotalAnswers);
         Assert.Equal(14, result.CorrectAnswers);
@@ -89,7 +90,8 @@ public class DuoTrioTestTests
             await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
         }
 
-        TestResult result = await _manager.GetTestResultsAsync(response.Id);
+        TestResult? result = (await _manager.GetTestResultsAsync(response.Id))?.Result;
+        Assert.NotNull(result);
         Assert.Equal(21, result.TotalJudgers);
         Assert.Equal(20, result.TotalAnswers);
         Assert.Equal(15, result.CorrectAnswers);

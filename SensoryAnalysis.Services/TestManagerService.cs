@@ -1,12 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using SensoryAnalysis.Contracts;
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services.Helpers;
-using System.Reflection.Metadata.Ecma335;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace SensoryAnalysis.Services;
 /// <summary>
@@ -38,7 +34,7 @@ public class TestManagerService : ITestManagerService
             "Significance: {RequestSignificance}\n" +
             "Sample 1: {RequestNameOfSample1}\n" +
             "Sample 2: {RequestNameOfSample2}",
-            
+
             nameof(TestManagerService),
             request is null,
             request?.Name,
@@ -58,7 +54,7 @@ public class TestManagerService : ITestManagerService
     {
         _logger.LogInformation("A request to add a judger to the {TestId} test " +
             "has reached {ServiceType}",
-            
+
             testId,
             nameof(TestManagerService));
 
@@ -85,6 +81,46 @@ public class TestManagerService : ITestManagerService
         return TestToTestResponse(test);
     }
 
+    public Test AddJudgerToTest(Test test, ITestService testService)
+    {
+        _logger.LogInformation("A request to add a judger to the {TestId} test " +
+            "has reached {ServiceType}",
+            test.Id,
+            nameof(TestManagerService));
+
+        Judger judge = new(test.Id, []);
+        SampleTypes lessFrequentType;
+        if (test.Judgers.Count(j => j.Samples.Count(s => s.SampleType == SampleTypes.Sample1) == 1) <= test.Judgers.Count / 2)
+        {
+            lessFrequentType = SampleTypes.Sample1;
+        }
+        else
+        {
+            lessFrequentType = SampleTypes.Sample2;
+        }
+        judge.Samples = testService.GenerateSamples(differentSample: lessFrequentType);
+        test.Judgers.Add(judge);
+        return test;
+    }
+
+    public async Task<TestResponse> AddJudgersToTestAsync(Guid testId, int amount)
+    {
+        Test? test = await _db.GetTestByIdAsync(testId, includeJudgers: false);
+        if (test is null) throw new Exception();
+        var service = _serviceFactory.GetTestService(test.TestType);
+        for (int i = 0; i < amount; i++)
+        {
+            test = AddJudgerToTest(test, service);
+        }
+        if (test is null)
+        {
+            throw new ArgumentException("Invalid amount");
+        }
+        await _db.AddJudgersAsync(test);
+        TestResponse response = GetTestResults(test);
+        return response;
+    }
+
     #endregion
 
     #region Reading 
@@ -101,7 +137,7 @@ public class TestManagerService : ITestManagerService
 
     public async Task<List<TestResponse>> GetAllTestsAsync()
     {
-        return (await _db.GetAllTestsAsync()).Select(TestToTestResponse).ToList();
+        return (await _db.GetAllTestsAsync()).Select(temp => TestToTestResponse(temp)).ToList();
     }
 
     public async Task<List<JudgerResponse>> GetJudgersFromTestAsync(Guid testId)
@@ -147,7 +183,7 @@ public class TestManagerService : ITestManagerService
             "has reached {ServiceType}" +
             "judgerId: {JudgerId}\n" +
             "chosenSample: {Answer}",
-            
+
             testId,
             typeof(TestManagerService),
             judgerId,
@@ -183,18 +219,20 @@ public class TestManagerService : ITestManagerService
         return TestToTestResponse(test);
     }
 
-    public async Task<TestResult> GetTestResultsAsync(Guid testId)
+    public TestResponse GetTestResults(Test test)
     {
         _logger.LogInformation("A request to get the {TestId} test's results " +
-            $"has reached TestManagerService.", testId);
-
-        Test? test = await _db.GetTestByIdAsync(testId);
-        if (test is null)
-        {
-            throw new ArgumentException("Invalid test Id");
-        }
+            $"has reached TestManagerService.", test.Id);
         ITestService service = _serviceFactory.GetTestService(test.TestType);
-        return service.GetTestResult(test);
+        TestResult result = service.GetTestResult(test);
+        return test.ToTestResponse(result);
+    }
+
+    public async Task<TestResponse?> GetTestResultsAsync(Guid testId)
+    {
+        Test? test = await _db.GetTestByIdAsync(testId);
+        if (test is null) return null;
+        return GetTestResults(test);
     }
 
     #endregion
@@ -234,10 +272,12 @@ public class TestManagerService : ITestManagerService
 
     #region Helpers
 
-    private TestResponse TestToTestResponse(Test test)
+    private TestResponse TestToTestResponse(Test test, TestResult? result = null)
     {
         ITestService service = _serviceFactory.GetTestService(test.TestType);
-        return service.GetTestResponse(test);
+        TestResponse response = service.GetTestResponse(test);
+        response.Result = result;
+        return response;
     }
 
     #endregion

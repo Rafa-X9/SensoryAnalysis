@@ -18,13 +18,22 @@ public class SqlServerRepository : ITestRepository
         return list;
     }
 
-    public async Task<Test?> GetTestByIdAsync(Guid id)
+    public async Task<Test?> GetTestByIdAsync(Guid id, bool includeJudgers = true)
     {
-        return await _db.Tests
-            .Include(temp => temp.Judgers.OrderBy(judger => judger.CreatedAt))
-            .ThenInclude(temp => temp.Samples.OrderBy(sample => sample.CreatedAt))
-            .AsNoTracking()
-            .FirstOrDefaultAsync(temp => temp.Id == id);
+        if (includeJudgers)
+        {
+            return await _db.Tests
+                .Include(temp => temp.Judgers.OrderBy(judger => judger.CreatedAt))
+                .ThenInclude(temp => temp.Samples.OrderBy(sample => sample.CreatedAt))
+                .AsNoTracking()
+                .FirstOrDefaultAsync(temp => temp.Id == id);
+        }
+        else
+        {
+            return await _db.Tests
+                .AsNoTracking()
+                .FirstOrDefaultAsync(temp => temp.Id == id);
+        }
     }
 
     public async Task<Test> AddTestAsync(Test test)
@@ -44,14 +53,6 @@ public class SqlServerRepository : ITestRepository
             Samples = judger.Samples
         };
         test.Judgers.Add(toAdd);
-        if (test.JudgerCount is null)
-        {
-            test.JudgerCount = 1;
-        }
-        else
-        {
-            test.JudgerCount++;
-        }
         _db.Judgers.Add(toAdd);
         await _db.SaveChangesAsync();
         return test;
@@ -89,8 +90,8 @@ public class SqlServerRepository : ITestRepository
 
     public async Task<bool> DeleteTestAsync(Guid testId)
     {
-        _db.Tests.RemoveRange(_db.Tests.Where(temp => temp.Id == testId));
-        return (await _db.SaveChangesAsync()) > 0;
+        return (await _db.Tests.Where(temp => temp.Id == testId)
+            .ExecuteDeleteAsync()) > 0;
     }
 
     public async Task<bool> RemoveJudgerFromTestAsync(Guid judgerId)
@@ -98,7 +99,12 @@ public class SqlServerRepository : ITestRepository
         Judger judger = await _db.Judgers.FirstAsync(temp => temp.Id == judgerId);
         Test test = await _db.Tests.FirstAsync(temp => temp.Id == judger.TestId);
         test.Judgers.Remove(judger);
-        test.JudgerCount--;
         return (await _db.SaveChangesAsync()) > 0;
+    }
+
+    public async Task AddJudgersAsync(Test test)
+    {
+        _db.Judgers.AddRange(test.Judgers);
+        await _db.SaveChangesAsync();
     }
 }

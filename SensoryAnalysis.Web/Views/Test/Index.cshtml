@@ -13,7 +13,6 @@
             <th>Nome</th>
             <th>Tipo</th>
             <th>Significância</th>
-            <th>Nº de julgadores</th>
             <th>Criado em</th>
             <th>Ações</th>
         </tr>
@@ -40,7 +39,6 @@
                 <td>@(test.Name)</td>
                 <td>@(testTypeInPt)</td>
                 <td>@(significance)</td>
-                <td>@(test.JudgerCount ?? 0)</td>
                 <td>@(test.CreatedAt.ToString("dd/MM/yyyy"))</td>
                 <td>
                     <a asp-controller="Test" asp-action="ViewTest" asp-route-id="@(test.Id)">Abrir</a>

@@ -99,9 +99,10 @@ public class TestController : Controller
     [Route("{id:guid}")]
     public async Task<IActionResult> ViewTest(Guid id)
     {
-        TestResponse? test = await _testManager.GetTestByIdAsync(id);
+        TestResponse? test;
+        test = await _testManager.GetTestResultsAsync(id);
         if (test is null) return RedirectToAction("Index");
-        ViewBag.Result = await _testManager.GetTestResultsAsync(id);
+        ViewBag.Result = test.Result;
         return View(test);
     }
 
@@ -110,15 +111,7 @@ public class TestController : Controller
     {
         _logger.LogInformation("A request to add {JudgerAmount} judgers to test {TestId} was made",
             amount, id);
-
-        if (amount <= 0 || await _testManager.GetTestByIdAsync(id) is null)
-        {
-            return RedirectToAction("Index");
-        }
-        for (int i = 0; i < amount; i++)
-        {
-            await _testManager.AddJudgerToTestAsync(id);
-        }
+        await _testManager.AddJudgersToTestAsync(id, amount);
         return RedirectToAction("ViewTest", new { id });
     }
 
@@ -137,7 +130,7 @@ public class TestController : Controller
         {
             await _testManager.AddAnswerToTestAsync(testId, judgerId, (answer == -1) ? null : answer);
         }
-        ViewBag.Result = await _testManager.GetTestResultsAsync(test.Id);
+        ViewBag.Result = (await _testManager.GetTestResultsAsync(test.Id))?.Result;
         return PartialView("ResultsTablePartial", test);
     }
 

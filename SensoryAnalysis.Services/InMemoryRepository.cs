@@ -11,7 +11,7 @@ public class InMemoryRepository : ITestRepository
         return Task.FromResult(_tests);
     }
 
-    public Task<Test?> GetTestByIdAsync(Guid id)
+    public Task<Test?> GetTestByIdAsync(Guid id, bool includeJudgers = true)
     {
         return Task.FromResult(_tests.FirstOrDefault(temp => temp.Id == id));
     }
@@ -77,5 +77,10 @@ public class InMemoryRepository : ITestRepository
             judger.Answer = judger.Samples.First(temp => temp.Number == chosenSample).Number;
         }
         return Task.FromResult(test);
+    }
+
+    public Task AddJudgersAsync(Test test)
+    {
+        return Task.CompletedTask;
     }
 }

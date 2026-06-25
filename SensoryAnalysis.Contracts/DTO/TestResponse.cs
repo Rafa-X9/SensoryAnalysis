@@ -9,11 +9,17 @@ public class TestResponse
     public Significances Significance { get; set; }
     public List<JudgerResponse> Judgers { get; set; }
     public DateTime CreatedAt { get; set; }
+    public TestResult? Result { get; set; }
 
     public string? NameOfSample1 { get; set; }
     public string? NameOfSample2 { get; set; }
 
-    public int? JudgerCount { get; set; }
+
+    public TestResponse()
+    {
+        Name = string.Empty;
+        Judgers = [];
+    }
 
     public TestResponse(Guid id,
         string name,
@@ -21,6 +27,7 @@ public class TestResponse
         Significances significance,
         List<Judger> judgers,
         DateTime createdAt,
+        TestResult? result,
         string? nameOfSample1 = null,
         string? nameOfSample2 = null)
     {
@@ -30,15 +37,15 @@ public class TestResponse
         Significance = significance;
         Judgers = judgers.Select(judger => judger.ToJudgerResponse()).ToList();
         CreatedAt = createdAt;
+        Result = result;
         NameOfSample1 = nameOfSample1;
         NameOfSample2 = nameOfSample2;
-        JudgerCount = Judgers.Count;
     }
 }
 
 public static class TestExtension
 {
-    public static TestResponse ToTestResponse(this Test test)
+    public static TestResponse ToTestResponse(this Test test, TestResult? result = null)
     {
         return new(test.Id,
             test.Name,
@@ -46,10 +53,8 @@ public static class TestExtension
             test.Significance,
             test.Judgers,
             test.CreatedAt,
+            result,
             nameOfSample1: test.NameOfSample1,
-            nameOfSample2: test.NameOfSample2)
-        {
-            JudgerCount = test.JudgerCount
-        };
+            nameOfSample2: test.NameOfSample2);
     }
 }

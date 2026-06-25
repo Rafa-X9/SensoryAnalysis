@@ -27,7 +27,7 @@ public class JsonRepository : ITestRepository
         return _tests;
     }
 
-    public async Task<Test?> GetTestByIdAsync(Guid id)
+    public async Task<Test?> GetTestByIdAsync(Guid id, bool includeJudgers = true)
     {
         await PullTests();
         return _tests.FirstOrDefault(temp => temp.Id == id);
@@ -104,6 +104,10 @@ public class JsonRepository : ITestRepository
         return test;
     }
 
+    public Task AddJudgersAsync(Test test)
+    {
+        return Task.CompletedTask;
+    }
     private async Task PullTests()
     {
         using StreamReader sr = new(_dbPath);

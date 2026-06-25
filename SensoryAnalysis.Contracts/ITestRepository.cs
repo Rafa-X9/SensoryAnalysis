@@ -16,8 +16,9 @@ public interface ITestRepository
     /// Gets a test by its id, or null if there are no tests.
     /// </summary>
     /// <param name="id">The id to search for</param>
+    /// <param name="includeJudgers">Whether the judgers should also be retrieved</param>
     /// <returns></returns>
-    Task<Test?> GetTestByIdAsync(Guid id);
+    Task<Test?> GetTestByIdAsync(Guid id, bool includeJudgers = true);
 
     /// <summary>
     /// Adds the test in the database and returns it.
@@ -63,4 +64,10 @@ public interface ITestRepository
     /// <param name="chosenSample">The sample the judger chose. Null removes the answer</param>
     /// <returns>The updated test</returns>
     Task<Test> AddAnswerToTestAsync(Guid judgerId, int? chosenSample);
+
+    /// <summary>
+    /// Adds the judgers from a test to the database
+    /// </summary>
+    /// <param name="test">The test to add the judgers from</param>
+    Task AddJudgersAsync(Test test);
 }
