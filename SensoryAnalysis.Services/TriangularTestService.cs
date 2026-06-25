@@ -70,11 +70,14 @@ public class TriangularTestService : ITestService
     public TestResult GetTestResult(Test test)
     {
         _logger.LogTestResultGeneration(test);
+        TestResult result;
 
         double n = test.Judgers.Count(judger => judger.Answer != null);
         if (n == 0)
         {
-            return new(test.Judgers.Count, 0, 0, 1);
+            result = new(test.Judgers.Count, 0, 0, 1);
+            _logger.LogTestResult(result);
+            return result;
         }
 
         //the formula for calculating the minimum answers is shown in
@@ -94,7 +97,7 @@ public class TriangularTestService : ITestService
 
         int correctAnswers = TestHelpers.CorrectAnswerCount(test.Judgers);
 
-        TestResult result = new(test.Judgers.Count,
+        result = new(test.Judgers.Count,
             Convert.ToInt32(n),
             correctAnswers,
             minimumAnswers);

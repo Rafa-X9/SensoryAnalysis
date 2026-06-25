@@ -31,14 +31,21 @@ public class TestManagerService : ITestManagerService
 
     public async Task<TestResponse> AddTestAsync(TestAddRequest? request)
     {
-        _logger.LogInformation($"A test add request has reached TestManagerService");
-        _logger.LogDebug("Test add request data:\n" +
-            $"Is null: {request is null}\n" +
-            $"Name: {request?.Name}\n" +
-            $"Type: {request?.TestType}\n" +
-            $"Significance: {request?.Significance}\n" +
-            $"Sample 1: {request?.NameOfSample1}\n" +
-            $"Sample 2: {request?.NameOfSample2}");
+        _logger.LogInformation("A test add request has reached {ServiceType}" +
+            "Is null: {RequestIsNull}\n" +
+            "Name: {RequestName}\n" +
+            "Type: {RequestTestType}\n" +
+            "Significance: {RequestSignificance}\n" +
+            "Sample 1: {RequestNameOfSample1}\n" +
+            "Sample 2: {RequestNameOfSample2}",
+            
+            nameof(TestManagerService),
+            request is null,
+            request?.Name,
+            request?.TestType,
+            request?.Significance,
+            request?.NameOfSample1,
+            request?.NameOfSample2);
 
         ArgumentNullException.ThrowIfNull(request);
         ValidatorHelper.ValidateObject(request);
@@ -49,8 +56,11 @@ public class TestManagerService : ITestManagerService
 
     public async Task<TestResponse> AddJudgerToTestAsync(Guid testId)
     {
-        _logger.LogInformation($"A request to add a judger to the {testId} test " +
-            $"has reached TestManagerService");
+        _logger.LogInformation("A request to add a judger to the {TestId} test " +
+            "has reached {ServiceType}",
+            
+            testId,
+            nameof(TestManagerService));
 
         Test? test = await _db.GetTestByIdAsync(testId);
         if (test is null)
@@ -81,7 +91,8 @@ public class TestManagerService : ITestManagerService
 
     public async Task<TestResponse?> GetTestByIdAsync(Guid id)
     {
-        _logger.LogInformation($"A request to get the {id} test has reached TestManagerService");
+        _logger.LogInformation("A request to get the {TestId} test has reached " +
+            $"TestManagerService", id);
 
         Test? test = await _db.GetTestByIdAsync(id);
         if (test is null) return null;
@@ -95,8 +106,8 @@ public class TestManagerService : ITestManagerService
 
     public async Task<List<JudgerResponse>> GetJudgersFromTestAsync(Guid testId)
     {
-        _logger.LogInformation($"A request to get the judgers from {testId} " +
-            $"has reached TestManagerService");
+        _logger.LogInformation("A request to get the judgers from {TestId} " +
+            "has reached {ServiceType}", testId, nameof(TestManagerService));
 
         Test? test = await _db.GetTestByIdAsync(testId);
         if (test is null)
@@ -108,8 +119,9 @@ public class TestManagerService : ITestManagerService
 
     public async Task<List<string>> GetSamplesInfoAsync(Guid testId)
     {
-        _logger.LogInformation($"A request to get the samples from the {testId} " +
-            $"test has reached TestManagerService");
+        _logger.LogInformation("A request to get the samples from the {TestId} " +
+            "test has reached {ServiceType}",
+            testId, nameof(TestManagerService));
 
         Test? test = await _db.GetTestByIdAsync(testId);
         if (test is null)
@@ -131,12 +143,15 @@ public class TestManagerService : ITestManagerService
 
     public async Task<TestResponse> AddAnswerToTestAsync(Guid testId, Guid judgerId, Guid? chosenSample)
     {
-        _logger.LogInformation($"A request to add an answer in the {testId} test " +
-            $"has reached TestManagerService");
-        _logger.LogDebug("AddAnswerToTest information:\n" +
-            $"testId: {testId}\n" +
-            $"judgerId: {judgerId}\n" +
-            $"chosenSample: {(chosenSample?.ToString() ?? "null")}");
+        _logger.LogInformation("A request to add an answer in the {testId} test " +
+            "has reached {ServiceType}" +
+            "judgerId: {JudgerId}\n" +
+            "chosenSample: {Answer}",
+            
+            testId,
+            typeof(TestManagerService),
+            judgerId,
+            (chosenSample?.ToString() ?? "null"));
 
         Test? test = await _db.GetTestByIdAsync(testId);
         if (test is null)
@@ -149,12 +164,15 @@ public class TestManagerService : ITestManagerService
 
     public async Task<TestResponse> AddAnswerToTestAsync(Guid testId, Guid judgerId, int? chosenSample)
     {
-        _logger.LogInformation($"A request to add an answer in the {testId} test " +
-            $"has reached TestManagerService");
-        _logger.LogDebug("AddAnswerToTest information:\n" +
-            $"testId: {testId}\n" +
-            $"judgerId: {judgerId}\n" +
-            $"chosenSample: {(chosenSample?.ToString() ?? "null")}");
+        _logger.LogInformation("A request to add an answer in the {testId} test " +
+            "has reached {ServiceType}" +
+            "judgerId: {JudgerId}\n" +
+            "chosenSample: {Answer}",
+
+            testId,
+            typeof(TestManagerService),
+            judgerId,
+            (chosenSample?.ToString() ?? "null"));
 
         Test? test = await _db.GetTestByIdAsync(testId);
         if (test is null)
@@ -167,8 +185,8 @@ public class TestManagerService : ITestManagerService
 
     public async Task<TestResult> GetTestResultsAsync(Guid testId)
     {
-        _logger.LogInformation($"A request to get the {testId} test's results " +
-            $"has reached TestManagerService.");
+        _logger.LogInformation("A request to get the {TestId} test's results " +
+            $"has reached TestManagerService.", testId);
 
         Test? test = await _db.GetTestByIdAsync(testId);
         if (test is null)
@@ -185,27 +203,29 @@ public class TestManagerService : ITestManagerService
 
     public async Task<bool> DeleteTestAsync(Guid testId)
     {
-        _logger.LogInformation($"A request to delete the {testId} test has reached " +
-            $"TestManagerService.");
+        _logger.LogInformation("A request to delete the {TestId} test has reached " +
+            $"TestManagerService.", testId);
 
         bool sucess = await _db.DeleteTestAsync(testId);
         if (!sucess)
         {
-            _logger.LogWarning($"Deletion of the {testId} test has failed");
+            _logger.LogWarning("Deletion of the {TestId} test has failed", testId);
         }
         return sucess;
     }
 
     public async Task<bool> RemoveJudgerFromTestAsync(Guid testId, Guid judgerId)
     {
-        _logger.LogInformation($"A request to remove the {judgerId} judger from " +
-            $"the {testId} test has reached TestManagerService.");
+        _logger.LogInformation("A request to remove the {JudgerId} judger from " +
+            "the {TestId} test has reached TestManagerService.",
+            judgerId, testId);
 
         bool sucess = await _db.RemoveJudgerFromTestAsync(judgerId);
         if (!sucess)
         {
-            _logger.LogWarning($"Deletion of the {judgerId} judger from the " +
-                $"{testId} test has failed");
+            _logger.LogWarning("Deletion of the {JudgerId} judger from the " +
+                "{TestId} test has failed",
+                judgerId, testId);
         }
         return sucess;
     }

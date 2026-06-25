@@ -71,17 +71,20 @@ public class DuoTrioTestService : ITestService
     public TestResult GetTestResult(Test test)
     {
         _logger.LogTestResultGeneration(test);
+        TestResult result;
 
         int answerCount = test.Judgers.Count(j => j.Answer is not null);
         if (answerCount == 0)
         {
-            return new(test.Judgers.Count, 0, 0, 1);
+            result = new(test.Judgers.Count, 0, 0, 1);
+            _logger.LogTestResult(result);
+            return result;
         }
         
         int correctAnswers = TestHelpers.CorrectAnswerCount(test.Judgers);
         double relevance = TestHelpers.SignificanceToDouble(test.Significance);
 
-        TestResult result = new(test.Judgers.Count,
+        result = new(test.Judgers.Count,
             answerCount,
             correctAnswers,
             MinimumForRelevance(answerCount, relevance));

@@ -10,36 +10,46 @@ internal static class LogExtensionHelpers
         Guid? judgerId, SampleTypes? differentSample) where T : ITestService
     {
         logger.LogInformation("A request to generate the samples for a judger " +
-            $"has reached {typeof(T)}");
-
-        logger.LogDebug("Sample generation info:\n" +
-            $"          Judger id: {judgerId?.ToString() ?? "null"}\n" +
-            $"          Different sample: {differentSample?.ToString() ?? "null"}");
+            "has reached {TestServiceType}" +
+            "          Judger id: {JudgerId}\n" +
+            "          Different sample: {DifferentSample}",
+            typeof(T),
+            judgerId?.ToString() ?? "null",
+            differentSample?.ToString() ?? "null");
     }
 
     internal static void LogSampleResults<T>(this ILogger<T> logger,
         IEnumerable<Sample> samples) where T : ITestService
     {
-        logger.LogDebug("Generated samples:\n" +
-            $"          {string.Join("\n          ", samples.Select(s => $"{s.Number}: {s.SampleType.ToString()}"))}");
+        logger.LogInformation("Generated samples:\n" +
+            "          {GeneratedSamples}",
+            string.Join("\n          ", samples.Select(s => $"{s.Number}: {s.SampleType.ToString()}")));
     }
 
     internal static void LogTestResultGeneration<T>(this ILogger<T> logger,
         Test test) where T : ITestService
     {
-        logger.LogInformation($"A request to get {test.Id} test's results has " +
-            $"reached {typeof(T)}");
+        logger.LogInformation("A request to get {TestId} test's results has " +
+            "reached {TestServiceType}",
+            test.Id, typeof(T));
     }
 
     internal static void LogTestResult<T>(this ILogger<T> logger,
         TestResult result) where T : ITestService
     {
-        logger.LogDebug("Test results info:\n" +
-            $"          Total judgers: {result.TotalJudgers}\n" +
-            $"          Total answers: {result.TotalAnswers}\n" +
-            $"          Correct answers: {result.CorrectAnswers}\n" +
-            $"          Wrong answers: {result.WrongAnswers}\n" +
-            $"          Minimum for relevance: {result.MinimumForRelevance}\n" +
-            $"          Has relevance: {result.HasRelevance}");
+        logger.LogInformation("Test results info:\n" +
+            "          Total judgers: {ResultTotalJudgers}\n" +
+            "          Total answers: {ResultTotalAnswers}\n" +
+            "          Correct answers: {ResultCorrectAnswers}\n" +
+            "          Wrong answers: {ResultWrongAnswers}\n" +
+            "          Minimum for relevance: {ResultMinimumForRelevance}\n" +
+            "          Has relevance: {ResultHasRelevance}",
+            
+            result.TotalJudgers,
+            result.TotalAnswers,
+            result.CorrectAnswers,
+            result.WrongAnswers,
+            result.MinimumForRelevance,
+            result.HasRelevance);
     }
 }

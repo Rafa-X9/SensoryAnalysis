@@ -57,14 +57,18 @@ public class TestController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(TestAddRequest request)
     {
-        _logger.LogInformation("A test add request has been made.");
-        
-        _logger.LogDebug($"TestAddRequest object:\n" +
-            $"        Name: {request.Name}\n" +
-            $"        Type: {request.TestType}\n" +
-            $"        Significance: {request.Significance}\n" +
-            $"        Sample 1: {request.NameOfSample1}\n" +
-            $"        Sample 2: {request.NameOfSample2}");
+        _logger.LogInformation("A test add request has been made.\n" +
+            "        Name: {RequestName}\n" +
+            "        Type: {RequestTestType}\n" +
+            "        Significance: {RequestSignificance}\n" +
+            "        Sample 1: {RequestNameOfSample1}\n" +
+            "        Sample 2: {RequestNameOfSample2}",
+
+            request.Name,
+            request.TestType,
+            request.Significance,
+            request.NameOfSample1,
+            request.NameOfSample2);
 
         if (ModelState.IsValid)
         {
@@ -86,7 +90,7 @@ public class TestController : Controller
     [HttpPost]
     public async Task<IActionResult> Delete(Guid id, bool soggyCatIsPeak = true)
     {
-        _logger.LogInformation($"A test deletion for id {id} request was made");
+        _logger.LogInformation("A test deletion for id {TestId} request was made", id);
 
         await _testManager.DeleteTestAsync(id);
         return RedirectToAction("Index");
@@ -104,7 +108,8 @@ public class TestController : Controller
     [Route("addjudger")]
     public async Task<IActionResult> AddJudger(Guid id, int amount)
     {
-        _logger.LogInformation($"A request to add {amount} judgers to test {id} was made");
+        _logger.LogInformation("A request to add {JudgerAmount} judgers to test {TestId} was made",
+            amount, id);
 
         if (amount <= 0 || await _testManager.GetTestByIdAsync(id) is null)
         {
@@ -121,8 +126,9 @@ public class TestController : Controller
     [HttpPost]
     public async Task<IActionResult> SubmitAnswer(Guid testId, Guid judgerId, int answer)
     {
-        _logger.LogInformation($"A request to add the {answer} answer to the " +
-            $"{judgerId} judger in the {testId} test was made");
+        _logger.LogInformation("A request to add the {Answer} answer to the " +
+            "{JudgerId} judger in the {TestId} test was made",
+            answer, judgerId, testId);
 
         TestResponse? test = await _testManager.GetTestByIdAsync(testId);
         if (test is null) return RedirectToAction("Index");
@@ -139,7 +145,8 @@ public class TestController : Controller
     [HttpGet]
     public async Task<IActionResult> RemoveJudgerFromTest(Guid testId, Guid judgerId)
     {
-        _logger.LogInformation($"A request to remove the {judgerId} judger from the {testId} test was made");
+        _logger.LogInformation("A request to remove the {JudgerId} judger from the {TestId} " +
+            "test was made", judgerId, testId);
 
         await _testManager.RemoveJudgerFromTestAsync(testId, judgerId);
         return RedirectToAction("ViewTest", new { id = testId });
@@ -148,7 +155,7 @@ public class TestController : Controller
     [Route("testrecordpdf")]
     public async Task<IActionResult> TestRecordPDF(Guid id)
     {
-        _logger.LogInformation($"A request to get the {id} test records' PDF was made");
+        _logger.LogInformation("A request to get the {TestId} test records' PDF was made", id);
 
         TestResponse? test = await _testManager.GetTestByIdAsync(id);
         if (test is null) return RedirectToAction("Index");
@@ -168,7 +175,7 @@ public class TestController : Controller
     [Route("SamplePaperSheetPDF")]
     public async Task<IActionResult> SamplePaperSheetPDF(Guid id)
     {
-        _logger.LogInformation($"A request to get the {id} test's sample paper sheet PDF was made");
+        _logger.LogInformation("A request to get the {TestId} test's sample paper sheet PDF was made", id);
 
         TestResponse? test = await _testManager.GetTestByIdAsync(id);
         if (test is null) return RedirectToAction("Index");
