@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Moq;
 using SensoryAnalysis.Contracts;
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
@@ -8,8 +9,27 @@ using System.Threading.Tasks;
 namespace SensoryAnalysis.Tests;
 public class DuoTrioTestTests
 {
-    private readonly ITestService _testService = new DuoTrioTestService(new Logger<DuoTrioTestService>(new LoggerFactory()));
-    private readonly ITestManagerService _manager = new TestManagerService(new InMemoryRepository(), new UnitTestServiceFactory(), new Logger<TestManagerService>(new LoggerFactory()));
+    private readonly ITestService _testService;
+    private readonly ITestManagerService _manager;
+
+    public DuoTrioTestTests()
+    {
+        var testServiceLoggerMock = new Mock<ILogger<DuoTrioTestService>>();
+        var testServiceLogger = testServiceLoggerMock.Object;
+
+        var managerLoggerMock = new Mock<ILogger<TestManagerService>>();
+        var managerLogger = managerLoggerMock.Object;
+
+        var serviceFactoryMock = new Mock<ITestServiceFactory>();
+        var serviceFactory = serviceFactoryMock.Object;
+
+        _testService = new DuoTrioTestService(testServiceLogger);
+        _manager = new TestManagerService(new InMemoryRepository(), serviceFactory, managerLogger);
+
+        serviceFactoryMock
+            .Setup(temp => temp.GetTestService(It.IsAny<TestTypes>()))
+            .Returns(_testService);
+    }
 
     #region IsValid
 

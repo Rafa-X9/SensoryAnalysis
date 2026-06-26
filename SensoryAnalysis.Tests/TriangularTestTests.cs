@@ -5,6 +5,7 @@ using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services;
 using SensoryAnalysis.Services.Helpers;
+using Moq;
 
 namespace SensoryAnalysis.Tests;
 
@@ -18,8 +19,21 @@ public class TriangularTestTests
 
     public TriangularTestTests()
     {
-        _manager = new TestManagerService(new InMemoryRepository(), new UnitTestServiceFactory(), new Logger<TestManagerService>(new LoggerFactory()));
-        _testService = new TriangularTestService(new Logger<TriangularTestService>(new LoggerFactory()));
+        var testServiceLoggerMock = new Mock<ILogger<TriangularTestService>>();
+        var testServiceLogger = testServiceLoggerMock.Object;
+
+        var managerLoggerMock = new Mock<ILogger<TestManagerService>>();
+        var managerLogger = managerLoggerMock.Object;
+
+        var serviceFactoryMock = new Mock<ITestServiceFactory>();
+        var serviceFactory = serviceFactoryMock.Object;
+
+        _manager = new TestManagerService(new InMemoryRepository(), serviceFactory, managerLogger);
+        _testService = new TriangularTestService(testServiceLogger);
+
+        serviceFactoryMock
+            .Setup(temp => temp.GetTestService(It.IsAny<TestTypes>()))
+            .Returns(_testService);
     }
 
     #region IsValid
