@@ -153,12 +153,11 @@ public class TriangularTestTests
     public async Task GetTestResults_1()
     {
         TestAddRequest addRequest = new("Test 1", TestTypes.Triangular, Significances._5);
-        TestResponse response = await _manager.AddTestAsync(addRequest);
-        for (int i = 0; i < 21; i++)
-        {
-            await _manager.AddJudgerToTestAsync(response.Id);
-        }
-        List<JudgerResponse> judgers = await _manager.GetJudgersFromTestAsync(response.Id);
+        TestResponse? response = await _manager.AddTestAsync(addRequest);
+        await _manager.AddJudgersToTestAsync(response.Id, 21);
+        response = await _manager.GetTestByIdAsync(response.Id);
+        if (response is null) throw new Exception();
+        List<JudgerResponse> judgers = response.Judgers;
 
         //11 judgers answering correctly
         for (int i = 0; i < 11; i++)

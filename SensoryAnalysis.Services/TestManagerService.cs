@@ -50,37 +50,6 @@ public class TestManagerService : ITestManagerService
         return TestToTestResponse(test);
     }
 
-    public async Task<TestResponse> AddJudgerToTestAsync(Guid testId)
-    {
-        _logger.LogInformation("A request to add a judger to the {TestId} test " +
-            "has reached {ServiceType}",
-
-            testId,
-            nameof(TestManagerService));
-
-        Test? test = await _db.GetTestByIdAsync(testId);
-        if (test is null)
-        {
-            throw new ArgumentException("No matching Id");
-        }
-        Judger judge = new(test.Id, []);
-
-        SampleTypes lessFrequentType;
-        if (test.Judgers.Count(j => j.Samples.Count(s => s.SampleType == SampleTypes.Sample1) == 1) <= test.Judgers.Count / 2)
-        {
-            lessFrequentType = SampleTypes.Sample1;
-        }
-        else
-        {
-            lessFrequentType = SampleTypes.Sample2;
-        }
-
-        ITestService service = _serviceFactory.GetTestService(test.TestType);
-        judge.Samples = service.GenerateSamples(differentSample: lessFrequentType);
-        await _db.AddJudgerToTestAsync(judge, test.Id);
-        return TestToTestResponse(test);
-    }
-
     public Test AddJudgerToTest(Test test, ITestService testService)
     {
         _logger.LogInformation("A request to add a judger to the {TestId} test " +
@@ -139,20 +108,7 @@ public class TestManagerService : ITestManagerService
     {
         return (await _db.GetAllTestsAsync()).Select(temp => TestToTestResponse(temp)).ToList();
     }
-
-    public async Task<List<JudgerResponse>> GetJudgersFromTestAsync(Guid testId)
-    {
-        _logger.LogInformation("A request to get the judgers from {TestId} " +
-            "has reached {ServiceType}", testId, nameof(TestManagerService));
-
-        Test? test = await _db.GetTestByIdAsync(testId);
-        if (test is null)
-        {
-            throw new ArgumentException("No matching Id");
-        }
-        return test.Judgers.Select(j => j.ToJudgerResponse()).ToList();
-    }
-
+    
     public async Task<List<string>> GetSamplesInfoAsync(Guid testId)
     {
         _logger.LogInformation("A request to get the samples from the {TestId} " +

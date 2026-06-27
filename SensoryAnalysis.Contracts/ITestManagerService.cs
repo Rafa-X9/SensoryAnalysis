@@ -32,15 +32,6 @@ public interface ITestManagerService
     Test AddJudgerToTest(Test test, ITestService testService);
 
     /// <summary>
-    /// Adds a judger to the specified test. This test also generates the samples
-    /// for the newly added judger
-    /// </summary>
-    /// <param name="testId">The id of the test to which the judger will be added</param>
-    /// <returns>A <see cref="TestResponse"/> object containing the updated test info</returns>
-    /// <exception cref="ArgumentException">Thrown if no matching Id is found</exception>
-    Task<TestResponse> AddJudgerToTestAsync(Guid testId);
-
-    /// <summary>
     /// Adds the specified amount of judgers to the tests, also generating them their samples.
     /// </summary>
     /// <param name="testId">The test to add judgers to</param>
@@ -65,14 +56,6 @@ public interface ITestManagerService
     /// </summary>
     /// <returns>List containing all tests</returns>
     Task<List<TestResponse>> GetAllTestsAsync();
-
-    /// <summary>
-    /// Returns all judgers in the given test
-    /// </summary>
-    /// <param name="testId">The test's Id to search for</param>
-    /// <returns>List containing all judgers from the test</returns>
-    /// <exception cref="ArgumentException">Thrown if the given Id has no matches</exception>
-    Task<List<JudgerResponse>> GetJudgersFromTestAsync(Guid testId);
 
     /// <summary>
     /// Returns the samples information of the specific test

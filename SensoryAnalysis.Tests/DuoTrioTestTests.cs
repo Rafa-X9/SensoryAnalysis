@@ -11,6 +11,7 @@ public class DuoTrioTestTests
 {
     private readonly ITestService _testService;
     private readonly ITestManagerService _manager;
+    private readonly ITestRepository _repository;
 
     public DuoTrioTestTests()
     {
@@ -23,8 +24,9 @@ public class DuoTrioTestTests
         var serviceFactoryMock = new Mock<ITestServiceFactory>();
         var serviceFactory = serviceFactoryMock.Object;
 
+        _repository = new InMemoryRepository();
         _testService = new DuoTrioTestService(testServiceLogger);
-        _manager = new TestManagerService(new InMemoryRepository(), serviceFactory, managerLogger);
+        _manager = new TestManagerService(_repository, serviceFactory, managerLogger);
 
         serviceFactoryMock
             .Setup(temp => temp.GetTestService(It.IsAny<TestTypes>()))
@@ -53,24 +55,29 @@ public class DuoTrioTestTests
     public async Task GetTestResults_1()
     {
         TestAddRequest addRequest = new("Test 1", TestTypes.DuoTrio, Significances._5);
-        TestResponse response = await _manager.AddTestAsync(addRequest);
-        for (int i = 0; i < 21; i++)
-        {
-            await _manager.AddJudgerToTestAsync(response.Id);
-        }
-        List<JudgerResponse> judgers = await _manager.GetJudgersFromTestAsync(response.Id);
+        TestResponse? response = await _manager.AddTestAsync(addRequest);
+
+        await _manager.AddJudgersToTestAsync(response.Id, 21);
+        response = await _manager.GetTestByIdAsync(response.Id);
+        if (response is null) throw new Exception();
+        List<JudgerResponse> judgers = response.Judgers;
+
+        //this is used to access the samples information we can't access in the response
+        Test? test = await _repository.GetTestByIdAsync(response.Id);
+        if (test is null) throw new Exception();
 
         //14 judgers answering correctly
         for (int i = 0; i < 14; i++)
         {
-            int differentSample = judgers[i].Samples.First(s => s.SampleType != judgers[i].Samples[2].SampleType).Number;
+            string info = _testService.SamplesInfo(test.Judgers[i], test);
+            int differentSample = judgers[i].Samples.First(s => s.SampleType != test.Judgers[i].Samples[2].SampleType).Number;
             await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
         }
 
         //6 remaining answering incorrectly, the last 1 didn't answer
         for (int i = 14; i < 20; i++)
         {
-            int equalSample = judgers[i].Samples.First(s => s.SampleType == judgers[i].Samples[2].SampleType).Number;
+            int equalSample = judgers[i].Samples.First(s => s.SampleType == test.Judgers[i].Samples[2].SampleType).Number;
             await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, equalSample);
         }
 
@@ -88,26 +95,29 @@ public class DuoTrioTestTests
     public async Task GetTestResults_2()
     {
         TestAddRequest addRequest = new("Test 2", TestTypes.DuoTrio, Significances._5);
-        TestResponse response = await _manager.AddTestAsync(addRequest);
-        for (int i = 0; i < 21; i++)
-        {
-            await _manager.AddJudgerToTestAsync(response.Id);
-        }
-        List<JudgerResponse> judgers = await _manager.GetJudgersFromTestAsync(response.Id);
+        TestResponse? response = await _manager.AddTestAsync(addRequest);
+        await _manager.AddJudgersToTestAsync(response.Id, 21);
+
+        response = await _manager.GetTestByIdAsync(response.Id);
+        if (response is null) throw new Exception();
+        List<JudgerResponse> judgers = response.Judgers;
+
+        Test? test = await _repository.GetTestByIdAsync(response.Id);
+        if (test is null) throw new Exception();
 
         //15 judgers answering correctly
         for (int i = 0; i < 15; i++)
         {
-            int differentSample = judgers[i].Samples.First(s => s.SampleType != judgers[i].Samples[2].SampleType).Number;
+            string info = _testService.SamplesInfo(test.Judgers[i], test);
+            int differentSample = judgers[i].Samples.First(s => s.SampleType != test.Judgers[i].Samples[2].SampleType).Number;
             await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
         }
 
         //5 remaining answering incorrectly, the last 1 didn't answer
         for (int i = 15; i < 20; i++)
         {
-
-            int differentSample = judgers[i].Samples.First(s => s.SampleType == judgers[i].Samples[2].SampleType).Number;
-            await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, differentSample);
+            int equalSample = judgers[i].Samples.First(s => s.SampleType == test.Judgers[i].Samples[2].SampleType).Number;
+            await _manager.AddAnswerToTestAsync(response.Id, judgers[i].Id, equalSample);
         }
 
         TestResult? result = (await _manager.GetTestResultsAsync(response.Id))?.Result;
