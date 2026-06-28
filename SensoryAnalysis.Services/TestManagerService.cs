@@ -133,27 +133,6 @@ public class TestManagerService : ITestManagerService
 
     #region Making the test
 
-    public async Task<TestResponse> AddAnswerToTestAsync(Guid testId, Guid judgerId, Guid? chosenSample)
-    {
-        _logger.LogInformation("A request to add an answer in the {testId} test " +
-            "has reached {ServiceType}" +
-            "judgerId: {JudgerId}\n" +
-            "chosenSample: {Answer}",
-
-            testId,
-            typeof(TestManagerService),
-            judgerId,
-            (chosenSample?.ToString() ?? "null"));
-
-        Test? test = await _db.GetTestByIdAsync(testId);
-        if (test is null)
-        {
-            throw new ArgumentException("Invalid test id");
-        }
-        await _db.AddAnswerToTestAsync(judgerId, chosenSample);
-        return TestToTestResponse(test);
-    }
-
     public async Task<TestResponse> AddAnswerToTestAsync(Guid testId, Guid judgerId, int? chosenSample)
     {
         _logger.LogInformation("A request to add an answer in the {testId} test " +

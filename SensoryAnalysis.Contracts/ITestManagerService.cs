@@ -92,17 +92,9 @@ public interface ITestManagerService
     /// </summary>
     /// <param name="testId">The test to add an answer to a judge in</param>
     /// <param name="judgerId">The judger to add a response to</param>
-    /// <param name="chosenSample">The Id of the sample the judger chose</param>
-    /// <returns>A <see cref="TestResponse"/> object with updated data, null to remove an answer</returns>
-    Task<TestResponse> AddAnswerToTestAsync(Guid testId, Guid judgerId, Guid? chosenSample);
-
-    /// <summary>
-    /// Adds the sample a judger chose in a test
-    /// </summary>
-    /// <param name="testId">The test to add an answer to a judge in</param>
-    /// <param name="judgerId">The judger to add a response to</param>
     /// <param name="chosenSample">The number of the sample the judger chose, null to remove</param>
     /// <returns>A <see cref="TestResponse"/> object with updated data, null to remove an answer</returns>
+    /// <exception cref="ArgumentException">Thrown if an invalid testId is given</exception>
     Task<TestResponse> AddAnswerToTestAsync(Guid testId, Guid judgerId, int? chosenSample);
 
     /// <summary>

@@ -41,6 +41,11 @@ public class TestResponse
         NameOfSample1 = nameOfSample1;
         NameOfSample2 = nameOfSample2;
     }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is TestResponse other && Id == other.Id;
+    }
 }
 
 public static class TestExtension
