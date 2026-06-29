@@ -4,6 +4,7 @@ using SensoryAnalysis.Contracts;
 using SensoryAnalysis.Contracts.DTO;
 using SensoryAnalysis.Entities;
 using SensoryAnalysis.Services;
+using SensoryAnalysis.Services.Helpers;
 using System.Threading.Tasks;
 
 namespace SensoryAnalysis.Tests;
@@ -47,6 +48,65 @@ public class DuoTrioTestTests
     {
         TestAddRequest rightType = new("Test with right type", TestTypes.DuoTrio, Significances._1);
         Assert.True(_testService.IsValid(rightType));
+    }
+
+    #endregion
+
+    #region GenerateSamples
+
+    /*
+     * Duo-trio tests show a reference sample and two numbered samples, with the
+     * judger having to mark down the one equal to the reference
+     * 
+     * This project has the last sample as the reference, its number being 0
+     * 
+     */
+
+    [Fact]
+    public void GenerateSamples_GeneratesThreeSamples()
+    {
+        List<Sample> samples = _testService.GenerateSamples();
+        Assert.Equal(3, samples.Count);
+    }
+
+    [Fact]
+    public void GenerateSamples_ThirdSampleHasNumberZero()
+    {
+        List<Sample> samples = _testService.GenerateSamples();
+        Assert.Equal(0, samples[2].Number);
+    }
+
+    [Fact]
+    public void GenerateSamples_GeneratesThreeDigitNumbers()
+    {
+        List<Sample> samples = _testService.GenerateSamples();
+        Assert.InRange(samples[0].Number, 101, 998);
+        Assert.InRange(samples[1].Number, 101, 998);
+    }
+
+    [Fact]
+    public void GenerateSamples_DoesNotGenerateForbiddenNumbers()
+    {
+        List<Sample> samples = _testService.GenerateSamples();
+        Assert.DoesNotContain(samples, s => s.Number.IsIn(100, 333, 666, 777, 999));
+    }
+
+    [Fact]
+    public void GenerateSamples_GeneratesExactlyOneSampleEqualToReference()
+    {
+        List<Sample> samples = _testService.GenerateSamples();
+        Sample reference = samples[2];
+
+        Assert.NotEqual(samples[0].SampleType, samples[1].SampleType);
+        Assert.True((samples[0].SampleType == reference.SampleType)
+            || (samples[1].SampleType == reference.SampleType));
+    }
+
+    [Fact]
+    public void GenerateSamples_GivenSampleType_UsesGivenSampleType()
+    {
+        List<Sample> samples = _testService.GenerateSamples(differentSample: SampleTypes.Sample1);
+        Assert.Single(samples, sample => sample.SampleType == SampleTypes.Sample1);
     }
 
     #endregion
