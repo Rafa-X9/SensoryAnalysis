@@ -35,15 +35,17 @@ public class DuoTrioTestTests
 
     #region IsValid
 
-    //The test type must be DuoTrio
-
     [Fact]
-    public void IsValid()
+    public void IsValid_WrongType_ReturnsFalse()
     {
         TestAddRequest wrongType = new("Test with wrong type", TestTypes.Triangular, Significances._5);
-        TestAddRequest rightType = new("Test with right type", TestTypes.DuoTrio, Significances._1);
-
         Assert.False(_testService.IsValid(wrongType));
+    }
+
+    [Fact]
+    public void IsValid_RightType_ReturnsTrue()
+    {
+        TestAddRequest rightType = new("Test with right type", TestTypes.DuoTrio, Significances._1);
         Assert.True(_testService.IsValid(rightType));
     }
 
@@ -52,7 +54,7 @@ public class DuoTrioTestTests
     #region GetTestResults
 
     [Fact]
-    public async Task GetTestResults_1()
+    public async Task GetTestResults_NotEnoughCorrectAnswers_ReturnsFailure()
     {
         TestAddRequest addRequest = new("Test 1", TestTypes.DuoTrio, Significances._5);
         TestResponse? response = await _manager.AddTestAsync(addRequest);
@@ -92,7 +94,7 @@ public class DuoTrioTestTests
     }
 
     [Fact]
-    public async Task GetTestResults_2()
+    public async Task GetTestResults_EnoughCorrectAnswers_ReturnsRelevant()
     {
         TestAddRequest addRequest = new("Test 2", TestTypes.DuoTrio, Significances._5);
         TestResponse? response = await _manager.AddTestAsync(addRequest);

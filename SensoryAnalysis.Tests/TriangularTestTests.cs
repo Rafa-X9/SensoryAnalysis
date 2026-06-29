@@ -41,12 +41,16 @@ public class TriangularTestTests
     //The test type must be triangular
 
     [Fact]
-    public void IsValid()
+    public void IsValid_Invalid_ReturnsFalse()
     {
         TestAddRequest wrongType = new("Test with wrong type", TestTypes.DuoTrio, Significances._5);
-        TestAddRequest rightType = new("Test with right type", TestTypes.Triangular, Significances._1);
-
         Assert.False(_testService.IsValid(wrongType));
+    }
+
+    [Fact]
+    public void IsValid_Invalid_ReturnsTrue()
+    {
+        TestAddRequest rightType = new("Test with right type", TestTypes.Triangular, Significances._1);
         Assert.True(_testService.IsValid(rightType));
     }
 
@@ -69,26 +73,36 @@ public class TriangularTestTests
      */
 
     [Fact]
-    public void GenerateSamples_NoGivenSampleType()
+    public void GenerateSamples_GeneratesThreeSamples()
     {
         List<Sample> samples = _testService.GenerateSamples();
-
-        //3 samples
         Assert.Equal(3, samples.Count);
+    }
 
-        //3 digit numbers
+    [Fact]
+    public void GenerateSamples_GeneratesOnlyThreeDigitNumbers()
+    {
+        List<Sample> samples = _testService.GenerateSamples();
         foreach (Sample sample in samples)
         {
             Assert.InRange(sample.Number, 100, 999);
         }
+    }
 
-        //no repetitions
+    [Fact]
+    public void GenerateSamples_GeneratesNoRepetitions()
+    {
+        List<Sample> samples = _testService.GenerateSamples();
         foreach (Sample sample in samples)
         {
             Assert.DoesNotContain(samples, s => s.Number == sample.Number && s.Id != sample.Id);
         }
+    }
 
-        //not ascending
+    [Fact]
+    public void GenerateSamples_DoesNotGenerateAscendingNorDescendingNumbers()
+    {
+        List<Sample> samples = _testService.GenerateSamples();
         bool isAscending = true;
         for (int i = 1; i < samples.Count; i++)
         {
@@ -99,7 +113,6 @@ public class TriangularTestTests
         }
         Assert.False(isAscending);
 
-        //not descending
         bool isDescending = true;
         for (int i = 1; i < samples.Count; i++)
         {
@@ -109,18 +122,26 @@ public class TriangularTestTests
             }
         }
         Assert.False(isDescending);
+    }
 
-        //two of a sample, one of the other
+    [Fact]
+    public void GenerateSamples_GeneratesTwoEqualSamples()
+    {
+        List<Sample> samples = _testService.GenerateSamples();
         int s1 = samples.Count(s => s.SampleType == SampleTypes.Sample1);
         int s2 = samples.Count(s => s.SampleType == SampleTypes.Sample2);
         Assert.True((s1 == 1 && s2 == 2) || (s1 == 2 && s2 == 1));
+    }
 
-        //no 100, 333, 666, 777, nor 999
+    [Fact]
+    public void GenerateSamples_DoesNotGenerateForbiddenNumbers()
+    {
+        List<Sample> samples = _testService.GenerateSamples();
         Assert.DoesNotContain(samples, s => s.Number.IsIn(100, 333, 666, 777, 999));
     }
 
     [Fact]
-    public void GenerateSamples_WithSampleType()
+    public void GenerateSamples_GivenSampleType_UsesGivenSampleType()
     {
         List<Sample> samples = _testService.GenerateSamples(differentSample: SampleTypes.Sample1);
         Assert.Single(samples, sample => sample.SampleType == SampleTypes.Sample1);
@@ -150,7 +171,7 @@ public class TriangularTestTests
      */
 
     [Fact]
-    public async Task GetTestResults_1()
+    public async Task GetTestResults_EnoughCorrectAnswers_ReturnsRelevant()
     {
         TestAddRequest addRequest = new("Test 1", TestTypes.Triangular, Significances._5);
         TestResponse? response = await _manager.AddTestAsync(addRequest);
