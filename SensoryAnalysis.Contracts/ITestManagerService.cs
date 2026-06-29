@@ -38,6 +38,7 @@ public interface ITestManagerService
     /// <param name="amount">The amount of judgers to add</param>
     /// <returns>A <see cref="TestResult"/> object with the updated test</returns>
     /// <exception cref="ArgumentException">Thrown if there isn't a matching id</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if a negative number is given</exception>
     Task<TestResponse> AddJudgersToTestAsync(Guid testId, int amount);
 
     #endregion

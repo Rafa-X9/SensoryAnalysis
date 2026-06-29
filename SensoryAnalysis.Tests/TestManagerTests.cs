@@ -176,7 +176,10 @@ public class TestManagerTests
     {
         TestResponse setUp = await SetUpTest();
         await _manager.AddJudgersToTestAsync(setUp.Id, 1);
-        bool success = await _manager.RemoveJudgerFromTestAsync(setUp.Id, setUp.Judgers[0].Id);
+        TestResponse? before = await _manager.GetTestByIdAsync(setUp.Id);
+        Assert.NotNull(before);
+
+        bool success = await _manager.RemoveJudgerFromTestAsync(setUp.Id, before.Judgers[0].Id);
         TestResponse? after = await _manager.GetTestByIdAsync(setUp.Id);
 
         Assert.True(success);

@@ -45,6 +45,13 @@ public class TestManagerService : ITestManagerService
 
         ArgumentNullException.ThrowIfNull(request);
         ValidatorHelper.ValidateObject(request);
+
+        ITestService service = _serviceFactory.GetTestService(request.TestType);
+        if (!service.IsValid(request))
+        {
+            throw new ArgumentException("Invalid test");
+        }
+
         Test test = request.ToTest();
         await _db.AddTestAsync(test);
         return TestToTestResponse(test);
@@ -74,6 +81,8 @@ public class TestManagerService : ITestManagerService
 
     public async Task<TestResponse> AddJudgersToTestAsync(Guid testId, int amount)
     {
+        ArgumentOutOfRangeException.ThrowIfNegative(amount);
+
         Test? test = await _db.GetTestByIdAsync(testId, includeJudgers: false);
         if (test is null) throw new Exception();
         var service = _serviceFactory.GetTestService(test.TestType);
